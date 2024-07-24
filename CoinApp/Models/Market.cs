@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoinApp.Models
 {
-    class Market
+    public class Market
     {
         public string ExchangeId { get; set; }
         public int Rank { get; set; }
