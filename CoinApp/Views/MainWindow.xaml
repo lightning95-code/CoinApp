@@ -36,10 +36,10 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Добавление картинки -->
+                    <!-- Додаю картинку -->
                     <Image Source="/Images/MainIconImg.jpg" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,20,0,40" RenderTransformOrigin="-1.4,0.458" Height="36" Width="25"/>
 
-                    <!-- Добавление надписи -->
+                    <!-- Додаю текстову надпись -->
                     <TextBlock Text="Coin App" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" Margin="5,20,0,40"/>
                 </Grid>
 
@@ -113,7 +113,19 @@
                 </Grid.RowDefinitions>
 
                 <!--Search Textbox-->
-
+                <Grid Width="300" HorizontalAlignment="Left" Height="50">
+                    <Border BorderBrush="#999fa8" BorderThickness="2" CornerRadius="8" Margin="40,0 -70 ,0">
+                        <ScrollViewer x:Name="Part_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                            <TextBox x:Name="searchTextBox" Text="Search here..." Foreground="#999fa8"
+                                FontSize="12" Margin="6 5 50 7"
+                                GotFocus="SearchTextBox_GotFocus" LostFocus="SearchTextBox_LostFocus" Background="Transparent" BorderThickness="0" Padding="15 10" Style="{StaticResource textboxSearch}" Width="271"/>
+                        </ScrollViewer>
+                    </Border>
+                    <Button Style="{StaticResource topButton}" Margin="0 0 -58 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Icon:PackIconMaterial Kind="Magnify" Width="20" Height="20" 
+                         Foreground="#999fa8" />
+                    </Button>
+                </Grid>
 
                 <!--Top settings buttons-->
                 <Button Style="{StaticResource topButton}" Margin="0 0 0 2" HorizontalAlignment="Right">

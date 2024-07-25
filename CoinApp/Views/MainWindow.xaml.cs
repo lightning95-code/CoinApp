@@ -51,5 +51,22 @@ namespace CoinApp
             }
         }
 
+
+        //Оновлення SearchBox
+        private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (searchTextBox.Text == "Search here...")
+            {
+                searchTextBox.Text = "";
+            }
+        }
+        //Оновлення SearchBox_2
+        private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(searchTextBox.Text))
+            {
+                searchTextBox.Text = "Search here...";
+            }
+        }
     }
 }

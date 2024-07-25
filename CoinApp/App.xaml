@@ -77,6 +77,18 @@
                 </Style.Triggers>
             </Style>
 
+            <!--Search text box style-->
+            <Style x:Key="textboxSearch" TargetType="TextBox">
+                <Setter Property="Background" Value="#ffffff"/>
+                <Setter Property="Foreground" Value="#999fa8"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Padding" Value="15 10"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0 10"/>
+
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
