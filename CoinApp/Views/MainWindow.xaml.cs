@@ -55,7 +55,7 @@ namespace CoinApp
         //Оновлення SearchBox
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (searchTextBox.Text == "Search here...")
+            if (searchTextBox.Text == "Search currency by name...")
             {
                 searchTextBox.Text = "";
             }
@@ -65,7 +65,7 @@ namespace CoinApp
         {
             if (string.IsNullOrWhiteSpace(searchTextBox.Text))
             {
-                searchTextBox.Text = "Search here...";
+                searchTextBox.Text = "Search currency by name...";
             }
         }
     }

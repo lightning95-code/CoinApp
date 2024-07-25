@@ -109,6 +109,9 @@
             <Grid Grid.Column="1" Margin="30 20 20 20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
 
                 </Grid.RowDefinitions>
 
@@ -116,7 +119,7 @@
                 <Grid Width="300" HorizontalAlignment="Left" Height="50">
                     <Border BorderBrush="#999fa8" BorderThickness="2" CornerRadius="8" Margin="40,0 -70 ,0">
                         <ScrollViewer x:Name="Part_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
-                            <TextBox x:Name="searchTextBox" Text="Search here..." Foreground="#999fa8"
+                            <TextBox x:Name="searchTextBox" Text="Search currency by name..." Foreground="#999fa8"
                                 FontSize="12" Margin="6 5 50 7"
                                 GotFocus="SearchTextBox_GotFocus" LostFocus="SearchTextBox_LostFocus" Background="Transparent" BorderThickness="0" Padding="15 10" Style="{StaticResource textboxSearch}" Width="271"/>
                         </ScrollViewer>
@@ -137,6 +140,28 @@
                 <Button Style="{StaticResource topButton}" Margin="0 0 80 0" HorizontalAlignment="Right">
                     <Icon:PackIconMaterial Kind="ThemeLightDark" Width="35" Height="20"/>
                 </Button>
+
+                <!--Page title-->
+                <TextBlock x:Name="PageTitle"  Text="Currencies" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="40,20,0,0"
+                    HorizontalAlignment="Left" Foreground="#121518" Grid.RowSpan="6"/>
+
+                <!--Separator-->
+                <Separator Height="8" Grid.Row="2" Background="Black" Margin="0 75 0 10"/>
+
+                <!--Tab buttons-->
+                <Grid Grid.Row="3" Margin="30 0 30 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- left button -->
+                    <Button Content="Top 10 currencies" Style="{StaticResource tabButton}" Width="150" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 5 0"/>
+                    <!-- Rigth button -->
+                    <Button Content="All available currencies" Style="{StaticResource tabButton}" Grid.Column="1" HorizontalAlignment="Right" Margin="40 0 30 0"/>
+                </Grid>
+
+
 
             </Grid>
         </Grid>
