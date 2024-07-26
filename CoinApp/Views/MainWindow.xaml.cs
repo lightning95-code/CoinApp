@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -16,13 +17,16 @@ namespace CoinApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool IsMaximized = false; //максимізація вікна
+        private bool IsMenuVisible = true; //чи задвинуте меню
+        private const double MenuWidth = 250;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
         //Максимізація вікна
-        private bool IsMaximized = false;
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
