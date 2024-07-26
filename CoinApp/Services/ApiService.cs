@@ -31,7 +31,7 @@ namespace CoinApp.Services
         }
 
         // Метод для отримання усіх валют
-        public async Task<Currency[]> GetTopCurrenciesAsync()
+        public async Task<Currency[]> GetCurrenciesAsync()
         {
             var response = await _httpClient.GetAsync("v2/assets"); // запит отримання даних 
             response.EnsureSuccessStatusCode(); // Перевіряє, чи статус-код відповіді є успішним

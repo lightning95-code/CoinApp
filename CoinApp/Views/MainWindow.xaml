@@ -110,7 +110,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!--Search Textbox-->
@@ -160,18 +160,18 @@
                 </Grid>
                 
                 <!--DataGrid-->
-                <DataGrid x:Name="CurrenciesDataGrid" 
+                <DataGrid x:Name="CurrenciesDataGrid"  ItemsSource="{Binding Currencies}"
                       Style="{StaticResource CurrenciesDataGrid}" 
                       Grid.Row="4"
                       ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">   
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" IsReadOnly="True" MinWidth="35" Width="auto"/>
-                        <DataGridTextColumn Header="Symbol" IsReadOnly="True" MinWidth="70" Width="auto"/>
-                        <DataGridTextColumn Header="Name" IsReadOnly="True" MinWidth="90" Width="auto"/>
-                        <DataGridTextColumn Header="Price" IsReadOnly="True" MinWidth="70" Width="auto"/>
-                        <DataGridTextColumn Header="Supply" IsReadOnly="True" MinWidth="110" Width="auto"/>
-                        <DataGridTextColumn Header="Market capitalization" IsReadOnly="True" MinWidth="150" Width="auto"/>
-                        <DataGridTextColumn Header="Price change (last 24 hours)" IsReadOnly="True" MinWidth="20" Width="*"/>
+                        <DataGridTextColumn Header="#" Binding="{Binding Rank}" IsReadOnly="True" MinWidth="40" Width="auto"/>
+                        <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" IsReadOnly="True" MinWidth="70" Width="auto"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" MinWidth="90" Width="auto"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding PriceUsd}" IsReadOnly="True" MinWidth="70" Width="auto"/>
+                        <DataGridTextColumn Header="Supply" Binding="{Binding Supply}" IsReadOnly="True" MinWidth="110" Width="auto"/>
+                        <DataGridTextColumn Header="Market capitalization"  Binding="{Binding MarketCapUsd}" IsReadOnly="True" MinWidth="150" Width="auto"/>
+                        <DataGridTextColumn Header="Price change (last 24 hours)" Binding="{Binding ChangePercent24Hr}" IsReadOnly="True" MinWidth="20" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
 

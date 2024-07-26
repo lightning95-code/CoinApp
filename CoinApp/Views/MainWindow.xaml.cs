@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using CoinApp.ViewModels;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,12 +19,11 @@ namespace CoinApp
     public partial class MainWindow : Window
     {
         private bool IsMaximized = false; //максимізація вікна
-        private bool IsMenuVisible = true; //чи задвинуте меню
-        private const double MenuWidth = 250;
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new CurrenciesViewModel();
         }
 
         //Максимізація вікна
@@ -72,5 +72,7 @@ namespace CoinApp
                 searchTextBox.Text = "Search currency by name...";
             }
         }
+
+        
     }
 }
