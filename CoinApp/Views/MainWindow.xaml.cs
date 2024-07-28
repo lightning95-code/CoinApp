@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace CoinApp
 {
@@ -73,6 +74,45 @@ namespace CoinApp
             }
         }
 
-        
+        //вихід із програми
+        private void Exit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Запуск анімації скриття
+            DoubleAnimation hideAnimation = new DoubleAnimation
+            {
+                From = 1.0,
+                To = 0.0,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+
+            // Додаю анімацію до цього вікна
+            this.BeginAnimation(UIElement.OpacityProperty, hideAnimation);
+
+            // Затримка перед завершенням роботи
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(0.5) // тривалість анімації
+            };
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                Application.Current.Shutdown();
+            };
+            timer.Start();
+        }
+
+        //Закриття цього вікна
+        private async void Close_This_Window_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Запуск анімації скриття поточного вікна
+            DoubleAnimation hideAnimation = new DoubleAnimation();
+            hideAnimation.From = 1.0;
+            hideAnimation.To = 0.0;
+            hideAnimation.Duration = TimeSpan.FromSeconds(0.5);
+            this.BeginAnimation(UIElement.OpacityProperty, hideAnimation);
+
+            await Task.Delay(500);
+            this.Close();
+        }
     }
 }

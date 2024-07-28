@@ -93,7 +93,7 @@
                             </Button>
                         </StackPanel>
 
-                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 30">
+                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 30" Click="Exit_Button_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Exit"/>
@@ -130,7 +130,7 @@
                 </Grid>
 
                 <!--Top settings buttons-->
-                <Button Style="{StaticResource topButton}" Margin="0 0 0 2" HorizontalAlignment="Right">
+                <Button Style="{StaticResource topButton}" Margin="0 0 0 2" HorizontalAlignment="Right" Click="Close_This_Window_Button_Click">
                     <TextBlock Text="X" FontSize="25" FontWeight="Bold"/>
                 </Button>
                 <Button Style="{StaticResource topButton}" Margin="0 0 40 0" HorizontalAlignment="Right">
@@ -173,7 +173,7 @@
                         <DataGridTextColumn Header="Price" Binding="{Binding PriceUsd, StringFormat={}{0:F2} \$}" IsReadOnly="True" MinWidth="70" Width="auto"/>
                         <DataGridTextColumn Header="Supply" Binding="{Binding Supply, StringFormat={}{0:F2}}" IsReadOnly="True" MinWidth="100" Width="auto"/>
                         <DataGridTextColumn Header="Market capitalization"  Binding="{Binding MarketCapUsd, StringFormat={}{0:F2} \$}" IsReadOnly="True" MinWidth="140" Width="auto"/>
-                        <DataGridTextColumn Header="Price change (24 h)" Binding="{Binding ChangePercent24Hr, StringFormat={}{0:F2} \%}" IsReadOnly="True" MinWidth="120" Width="auto"/>
+                        <DataGridTextColumn Header="Price change (24 h)" Binding="{Binding ChangePercent24Hr, StringFormat={}{0:F2} \%}" IsReadOnly="True" MinWidth="110" Width="auto"/>
 
                         <DataGridTemplateColumn Header = "Details" IsReadOnly = "True" Width = "auto">
                             <DataGridTemplateColumn.CellTemplate >
