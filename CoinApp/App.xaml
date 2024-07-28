@@ -147,15 +147,14 @@
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="Height" Value="20"/>
+                <Setter Property="FontSize" Value="13"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="BorderBrush" Value="Gray"/>
                 <Setter Property="BorderThickness" Value="1"/>
              </Style>
-
-
-    
-            <!-- Currencies DataGrid -->
+            
+                <!-- Currencies DataGrid -->
             <Style x:Key="CurrenciesDataGrid" TargetType="DataGrid">
                 <Setter Property="Background" Value="AliceBlue"/>
                 <Setter Property="Foreground" Value="#222528"/>
@@ -173,13 +172,43 @@
                 <Setter Property="CanUserAddRows" Value="False"/>
                 <Setter Property="CanUserResizeRows" Value="False"/>
                 <Setter Property="CanUserReorderColumns" Value="False"/>
-                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="11"/>
                 <Setter Property="ColumnWidth" Value="*"/>
                 <Setter Property="GridLinesVisibility" Value="All"/>
                 <Setter Property="ColumnHeaderStyle" Value="{StaticResource DataGridColumnHeaderStyle}"/>
             </Style>
+    
+            <!--DataGrid buttons style-->
+            <Style x:Key="GridDetailButton" TargetType="Button">
+                <Setter Property="Background" Value="#28668f"/>
+                <Setter Property="Foreground" Value="#ffffff"/>
+                <Setter Property="BorderBrush" Value="#1f4e6e"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0 0 5 0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="10 5" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
 
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#CC5500"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
+            <Style x:Key="GridButttonIcon" TargetType="Icon:PackIconMaterial">
+                <Setter Property="Width" Value="10"/>
+                <Setter Property="Height" Value="10"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
 
 
 

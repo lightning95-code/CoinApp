@@ -23,7 +23,7 @@ namespace CoinApp
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new CurrenciesViewModel();
+            DataContext = new CurrenciesViewModel(); //встановлюю дата контекст для вікна
         }
 
         //Максимізація вікна

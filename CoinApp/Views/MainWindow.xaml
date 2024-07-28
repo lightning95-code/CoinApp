@@ -14,6 +14,7 @@
         Background="Transparent"
         Icon="/Images/MainIconImg.jpg"
         Title="Coin App" Height="720" Width="1080">
+    
 
     <Border Background ="AliceBlue" CornerRadius="15" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseDown="Border_MouseDown">
         <Grid>
@@ -163,15 +164,29 @@
                 <DataGrid x:Name="CurrenciesDataGrid"  ItemsSource="{Binding Currencies}"
                       Style="{StaticResource CurrenciesDataGrid}" 
                       Grid.Row="4"
-                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">   
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" Binding="{Binding Rank}" IsReadOnly="True" MinWidth="40" Width="auto"/>
-                        <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" IsReadOnly="True" MinWidth="70" Width="auto"/>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" MinWidth="90" Width="auto"/>
-                        <DataGridTextColumn Header="Price" Binding="{Binding PriceUsd}" IsReadOnly="True" MinWidth="70" Width="auto"/>
-                        <DataGridTextColumn Header="Supply" Binding="{Binding Supply}" IsReadOnly="True" MinWidth="110" Width="auto"/>
-                        <DataGridTextColumn Header="Market capitalization"  Binding="{Binding MarketCapUsd}" IsReadOnly="True" MinWidth="150" Width="auto"/>
-                        <DataGridTextColumn Header="Price change (last 24 hours)" Binding="{Binding ChangePercent24Hr}" IsReadOnly="True" MinWidth="20" Width="*"/>
+                        <DataGridTextColumn Header="#" Binding="{Binding Rank}" IsReadOnly="True" MinWidth="50" Width="auto"/>
+                        <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" IsReadOnly="True" MinWidth="65" Width="auto"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" MinWidth="85" Width="*"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding PriceUsd, StringFormat={}{0:F2} \$}" IsReadOnly="True" MinWidth="70" Width="auto"/>
+                        <DataGridTextColumn Header="Supply" Binding="{Binding Supply, StringFormat={}{0:F2}}" IsReadOnly="True" MinWidth="100" Width="auto"/>
+                        <DataGridTextColumn Header="Market capitalization"  Binding="{Binding MarketCapUsd, StringFormat={}{0:F2} \$}" IsReadOnly="True" MinWidth="140" Width="auto"/>
+                        <DataGridTextColumn Header="Price change (24 h)" Binding="{Binding ChangePercent24Hr, StringFormat={}{0:F2} \%}" IsReadOnly="True" MinWidth="120" Width="auto"/>
+
+                        <DataGridTemplateColumn Header = "Details" IsReadOnly = "True" Width = "auto">
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate>
+                                    <StackPanel Orientation = "Horizontal" >
+                                        <Button Style = "{StaticResource GridDetailButton}">
+                                            <Icon:PackIconMaterial Kind = "Details" Style="{StaticResource GridButttonIcon}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
                     </DataGrid.Columns>
                 </DataGrid>
 
