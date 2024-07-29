@@ -11,6 +11,8 @@ namespace CoinApp.ViewModels
     {
         private ObservableCollection<Currency> _currencies;
 
+        private bool _showingTopCurrencies = true;
+
         private readonly ApiService _apiService;
 
         public ObservableCollection<Currency> Currencies
@@ -67,6 +69,31 @@ namespace CoinApp.ViewModels
         public async Task LoadAllCurrenciesAsync()
         {
             await LoadAllCurrencies();
+        }
+
+        public bool ShowingTopCurrencies
+        {
+            get => _showingTopCurrencies;
+            set
+            {
+                if (_showingTopCurrencies != value)
+                {
+                    _showingTopCurrencies = value;
+                    OnPropertyChanged(nameof(ShowingTopCurrencies));
+                }
+            }
+        }
+
+        public async Task RefreshDataAsync()
+        {
+            if (ShowingTopCurrencies)
+            {
+                await LoadTopCurrencies();
+            }
+            else
+            {
+                await LoadAllCurrencies();
+            }
         }
 
 

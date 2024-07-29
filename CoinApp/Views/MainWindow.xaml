@@ -15,7 +15,6 @@
         Icon="/Images/MainIconImg.jpg"
         Title="Coin App" Height="720" Width="1080">
     
-
     <Border Background ="AliceBlue" CornerRadius="15" MouseLeftButtonDown="Border_MouseLeftButtonDown" MouseDown="Border_MouseDown">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -57,7 +56,7 @@
 
                         <!--Menu buttons-->
                         <StackPanel DockPanel.Dock="Top">
-                            <Button Style="{StaticResource menuButton}">
+                            <Button Style="{StaticResource menuButton}" Click="Refresh_Button_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Refresh" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Refresh current page"/>
@@ -75,6 +74,13 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Bitcoin" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Coin"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="CurrencyUsd" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Markets"/>
                                 </StackPanel>
                             </Button>
 
@@ -113,7 +119,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
+                
                 <!--Search Textbox-->
                 <Grid Width="300" HorizontalAlignment="Left" Height="50">
                     <Border BorderBrush="#999fa8" BorderThickness="2" CornerRadius="8" Margin="40,0 -70 ,0">
@@ -155,16 +161,25 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- left button -->
-                    <Button Content="Top 10 currencies" Style="{StaticResource tabButton}" Width="150" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 5 0" Click="Show_Top_10_Curruncies_Button_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="Top_10_Button" Content="Top 10 currencies" Style="{StaticResource tabButton}" Width="150" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 5 0" Click="Show_Top_10_Currencies_Button_Click"/>
+                        <Icon:PackIconMaterial x:Name="Top_Currencies_button_Icon" Kind="CheckBold" Width="15" Height="15" VerticalAlignment="Center" Visibility="Visible" Foreground="Green"/>
+                    </StackPanel>
+                   
                     <!-- Rigth button -->
-                    <Button Content="All available currencies" Style="{StaticResource tabButton}" Grid.Column="1" HorizontalAlignment="Right" Margin="40 0 30 0" Click="Show_All_Curruncies_Button_Click"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+                        <Button x:Name="All_Currencies_button" Content="All available currencies" Style="{StaticResource tabButton}" Grid.Column="1" HorizontalAlignment="Right" Margin="40 0 30 0" Click="Show_All_Currencies_Button_Click"/>
+                        <Icon:PackIconMaterial x:Name="All_Currencies_button_Icon" Kind="CheckBold" Width="15" Height="15" VerticalAlignment="Center" Visibility="Collapsed" Margin="0 0 30 0" Foreground="Green"/>
+                    </StackPanel>
+                    
                 </Grid>
                 
                 <!--DataGrid-->
                 <DataGrid x:Name="CurrenciesDataGrid"  ItemsSource="{Binding Currencies}"
                       Style="{StaticResource CurrenciesDataGrid}" 
                       Grid.Row="4"
-                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                      Visibility="Visible">
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#" Binding="{Binding Rank}" IsReadOnly="True" MinWidth="50" Width="auto"/>
@@ -190,6 +205,15 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
+                <!-- Панель завантаження -->
+                <Grid x:Name="LoadingPanel" Visibility="Collapsed" Background="AliceBlue" Opacity="0.8" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="4" Margin="0 115">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Width="300" Height="150">
+                        <!-- Повідомленя -->
+                        <TextBlock Text="Loading..." FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="11 -3 0 0"/>
+                        <!-- Полоса виконання -->
+                        <ProgressBar IsIndeterminate="True" Width="200" Height="20" Margin="10"/>
+                    </StackPanel>
+                </Grid>
 
             </Grid>
         </Grid>

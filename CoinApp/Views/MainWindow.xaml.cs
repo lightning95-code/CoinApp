@@ -1,7 +1,6 @@
 ﻿using CoinApp.ViewModels;
 using System.Text;
 using System.Windows;
-using CoinApp.ViewModels;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
@@ -21,6 +20,32 @@ namespace CoinApp
             InitializeComponent();
             _viewModel = new CurrenciesViewModel();
             DataContext = _viewModel; //встановлюю дата контекст для вікна
+        }
+
+        private void Show_Top_10_Currencies_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.ShowingTopCurrencies = true;
+                _viewModel.RefreshDataAsync();
+
+                Top_Currencies_button_Icon.Visibility = Visibility.Visible;
+                All_Currencies_button.Margin = new Thickness(40, 0, 30, 0); 
+                All_Currencies_button_Icon.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void Show_All_Currencies_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.ShowingTopCurrencies = false;
+                _viewModel.RefreshDataAsync();
+
+                All_Currencies_button_Icon.Visibility = Visibility.Visible;
+                All_Currencies_button.Margin = new Thickness(40, 0, 0, 0);
+                Top_Currencies_button_Icon.Visibility = Visibility.Collapsed;     
+            }
         }
 
         //Максимізація вікна
@@ -111,14 +136,24 @@ namespace CoinApp
             this.Close();
         }
 
-        private void Show_Top_10_Curruncies_Button_Click(object sender, RoutedEventArgs e)
+        //Оновлення вікна
+        private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.LoadTopCurrenciesAsync();
+            if (_viewModel != null)
+            {
+                //Робим видимою панель завантаження, а таблицю навпаки приховуємо
+                LoadingPanel.Visibility = Visibility.Visible;
+                CurrenciesDataGrid.Visibility = Visibility.Collapsed;
+
+                await _viewModel.RefreshDataAsync();
+
+                await Task.Delay(3000);
+
+                // Робим видимою таблицю, а панель навпаки приховуємо
+                LoadingPanel.Visibility = Visibility.Collapsed;
+                CurrenciesDataGrid.Visibility = Visibility.Visible;
+            }
         }
 
-        private void Show_All_Curruncies_Button_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.LoadAllCurrenciesAsync();
-        }
     }
 }
