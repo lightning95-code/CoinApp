@@ -10,6 +10,7 @@ namespace CoinApp.ViewModels
     public class CurrenciesViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Currency> _currencies;
+
         private readonly ApiService _apiService;
 
         public ObservableCollection<Currency> Currencies
@@ -25,13 +26,14 @@ namespace CoinApp.ViewModels
             }
         }
 
+
         public CurrenciesViewModel()
         {
             _apiService = new ApiService();
-            LoadTopCurrencies();
+            LoadTopCurrencies(); //за замовчуванням
         }
 
-        private async void LoadTopCurrencies()
+        private async Task LoadTopCurrencies()
         {
             try
             {
@@ -43,6 +45,30 @@ namespace CoinApp.ViewModels
                 MessageBox.Show($"Error loading currencies: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private async Task LoadAllCurrencies()
+        {
+            try
+            {
+                var allCurrencies = await _apiService.GetCurrenciesAsync();
+                Currencies = new ObservableCollection<Currency>(allCurrencies);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading all currencies: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public async Task LoadTopCurrenciesAsync()
+        {
+            await LoadTopCurrencies();
+        }
+
+        public async Task LoadAllCurrenciesAsync()
+        {
+            await LoadAllCurrencies();
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

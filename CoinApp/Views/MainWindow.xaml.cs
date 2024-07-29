@@ -1,15 +1,9 @@
 ﻿using CoinApp.ViewModels;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using CoinApp.ViewModels;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace CoinApp
@@ -20,11 +14,13 @@ namespace CoinApp
     public partial class MainWindow : Window
     {
         private bool IsMaximized = false; //максимізація вікна
+        private CurrenciesViewModel _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new CurrenciesViewModel(); //встановлюю дата контекст для вікна
+            _viewModel = new CurrenciesViewModel();
+            DataContext = _viewModel; //встановлюю дата контекст для вікна
         }
 
         //Максимізація вікна
@@ -113,6 +109,16 @@ namespace CoinApp
 
             await Task.Delay(500);
             this.Close();
+        }
+
+        private void Show_Top_10_Curruncies_Button_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.LoadTopCurrenciesAsync();
+        }
+
+        private void Show_All_Curruncies_Button_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.LoadAllCurrenciesAsync();
         }
     }
 }
