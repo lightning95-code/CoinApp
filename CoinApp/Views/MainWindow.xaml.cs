@@ -1,4 +1,5 @@
 ﻿using CoinApp.ViewModels;
+using CoinApp.Views;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -77,24 +78,6 @@ namespace CoinApp
             }
         }
 
-
-        //Оновлення SearchBox
-        private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (searchTextBox.Text == "Search currency by name...")
-            {
-                searchTextBox.Text = "";
-            }
-        }
-        //Оновлення SearchBox_2
-        private void SearchTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(searchTextBox.Text))
-            {
-                searchTextBox.Text = "Search currency by name...";
-            }
-        }
-
         //вихід із програми
         private void Exit_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -157,7 +140,21 @@ namespace CoinApp
 
         private void Main_Button_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow main_win = new MainWindow();
 
+            main_win.Show();
+
+            this.Close();
+        }
+
+
+        private void Markets_Button_Click(object sender, RoutedEventArgs e)
+        {
+            MarketsView marketsView = new MarketsView();
+
+            marketsView.Show();
+
+            this.Close();
         }
     }
 }
