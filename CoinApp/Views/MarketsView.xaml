@@ -137,11 +137,42 @@
 
                     <!-- left button -->
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="All_Markets_Button" Content="All Markets" Style="{StaticResource tabButton}" Width="150" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 -16 0" Click="Show_All_Markets_Button_Click"/>
+                        <Button x:Name="All_Markets_Button" Content="All Markets" Style="{StaticResource tabButton}" Width="150" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 -16 0"/>
                         <Icon:PackIconMaterial x:Name="Top_Currencies_button_Icon" Kind="CheckBold" Width="15" Height="15" VerticalAlignment="Center" Visibility="Visible" Foreground="Green"/>
                     </StackPanel>
-
                 </Grid>
+
+                <!--DataGrid-->
+                <DataGrid x:Name="MarketsDataGrid" ItemsSource="{Binding Markets}"
+                          Style="{StaticResource CurrenciesAndMarketsDataGrid}" 
+                          Grid.Row="4"
+                          ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                          Visibility="Visible">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="#" Binding="{Binding RowNumber}" IsReadOnly="True" MinWidth="50" Width="auto"/>
+                        <DataGridTextColumn Header="Exch ID" Binding="{Binding DisplayExchangeId}" IsReadOnly="True" MinWidth="80" Width="auto"/>
+                        <DataGridTextColumn Header="Base Sym" Binding="{Binding DisplayBaseSymbol}" IsReadOnly="True" MinWidth="80" Width="*"/>
+                        <DataGridTextColumn Header="Base ID" Binding="{Binding DisplayBaseId}" IsReadOnly="True" MinWidth="80" Width="auto"/>
+                        <DataGridTextColumn Header="Quote" Binding="{Binding DisplayQuoteSymbol}" IsReadOnly="True" MinWidth="65" Width="auto"/>
+                        <DataGridTextColumn Header="Price Quote" Binding="{Binding DisplayPriceQuote, StringFormat={}{0:F2}}" IsReadOnly="True" MinWidth="80" Width="auto"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding DisplayPriceUsd, StringFormat={}{0:F2} \$}" IsReadOnly="True" MinWidth="90" Width="auto"/>
+                        <DataGridTextColumn Header="Volume (24 h)" Binding="{Binding DisplayVolumeUsd24Hr, StringFormat={}{0:F2} \$}" IsReadOnly="True" MinWidth="110" Width="auto"/>
+                        <DataGridTextColumn Header="Trds (24 h)" Binding="{Binding DisplayTradesCount24Hr}" IsReadOnly="True" MinWidth="72" Width="auto"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+                <!-- Панель завантаження -->
+                <Grid x:Name="LoadingPanel" Visibility="Collapsed" Background="AliceBlue" Opacity="0.8" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="4" Margin="0 115">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Width="300" Height="150">
+                        <!-- Повідомленя -->
+                        <TextBlock Text="Loading..." FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="11 -3 0 0"/>
+                        <!-- Полоса виконання -->
+                        <ProgressBar IsIndeterminate="True" Width="200" Height="20" Margin="10" Foreground="Blue" BorderBrush="#15354a" BorderThickness="2" Background="#bfd3e0"/>
+                    </StackPanel>
+                </Grid>
+
             </Grid>
         </Grid>
     </Border>

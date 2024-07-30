@@ -152,7 +152,7 @@
                 
                 <!--DataGrid-->
                 <DataGrid x:Name="CurrenciesDataGrid"  ItemsSource="{Binding Currencies}"
-                      Style="{StaticResource CurrenciesDataGrid}" 
+                      Style="{StaticResource CurrenciesAndMarketsDataGrid}" 
                       Grid.Row="4"
                       ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                       Visibility="Visible">

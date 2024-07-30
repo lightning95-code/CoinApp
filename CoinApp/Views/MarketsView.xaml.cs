@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using CoinApp.Utilities;
+using CoinApp.ViewModels;
 
 namespace CoinApp.Views
 {
@@ -22,9 +23,12 @@ namespace CoinApp.Views
     {
 
         private bool IsMaximized = false; //максимізація вікна
+        private MarketsViewModel _viewModel;
         public MarketsView()
         {
             InitializeComponent();
+            _viewModel = new MarketsViewModel();
+            DataContext = _viewModel; //встановлюю дата контекст для вікна
         }
 
         //Максимізація вікна
@@ -58,9 +62,22 @@ namespace CoinApp.Views
 
         
         //Оновлення вікна
-        private void Refresh_Button_Click(object sender, RoutedEventArgs e)
+        private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (_viewModel != null)
+            {
+                //Робим видимою панель завантаження, а таблицю навпаки приховуємо
+                LoadingPanel.Visibility = Visibility.Visible;
+                MarketsDataGrid.Visibility = Visibility.Collapsed;
+
+                await _viewModel.RefreshDataAsync();
+
+                await Task.Delay(2500);
+
+                // Робим видимою таблицю, а панель навпаки приховуємо
+                LoadingPanel.Visibility = Visibility.Collapsed;
+                MarketsDataGrid.Visibility = Visibility.Visible;
+            }
         }
 
         private void Main_Button_Click(object sender, RoutedEventArgs e)
@@ -133,11 +150,6 @@ namespace CoinApp.Views
                 Application.Current.Shutdown();
             };
             timer.Start();
-        }
-
-        private void Show_All_Markets_Button_Click (object sender, RoutedEventArgs e)
-        {
-            
         }
 
     }

@@ -154,8 +154,8 @@
                 <Setter Property="BorderThickness" Value="1"/>
              </Style>
             
-                <!-- Currencies DataGrid -->
-            <Style x:Key="CurrenciesDataGrid" TargetType="DataGrid">
+                <!-- Currencies and Markets DataGrid -->
+            <Style x:Key="CurrenciesAndMarketsDataGrid" TargetType="DataGrid">
                 <Setter Property="Background" Value="AliceBlue"/>
                 <Setter Property="Foreground" Value="#222528"/>
                 <Setter Property="BorderThickness" Value="3"/>
