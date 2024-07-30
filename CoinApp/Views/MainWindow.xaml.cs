@@ -147,7 +147,7 @@ namespace CoinApp
 
                 await _viewModel.RefreshDataAsync();
 
-                await Task.Delay(3000);
+                await Task.Delay(2500);
 
                 // Робим видимою таблицю, а панель навпаки приховуємо
                 LoadingPanel.Visibility = Visibility.Collapsed;
@@ -155,5 +155,9 @@ namespace CoinApp
             }
         }
 
+        private void Main_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

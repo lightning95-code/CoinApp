@@ -63,7 +63,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}">
+                            <Button Style="{StaticResource menuButton}" Click="Main_Button_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Main"/>
@@ -211,7 +211,7 @@
                         <!-- Повідомленя -->
                         <TextBlock Text="Loading..." FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="11 -3 0 0"/>
                         <!-- Полоса виконання -->
-                        <ProgressBar IsIndeterminate="True" Width="200" Height="20" Margin="10"/>
+                        <ProgressBar IsIndeterminate="True" Width="200" Height="20" Margin="10" Foreground="Blue" BorderBrush="#15354a" BorderThickness="2" Background="#bfd3e0"/>
                     </StackPanel>
                 </Grid>
 
