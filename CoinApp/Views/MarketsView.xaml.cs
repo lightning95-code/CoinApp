@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using CoinApp.Utilities;
 
 namespace CoinApp.Views
 {
@@ -66,7 +65,21 @@ namespace CoinApp.Views
 
         private void Main_Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main_win = new MainWindow();
+            // Збереження стану вікна
+            WindowStateManager.Width = this.Width;
+            WindowStateManager.Height = this.Height;
+            WindowStateManager.Top = this.Top;
+            WindowStateManager.Left = this.Left;
+            WindowStateManager.IsMaximized = this.WindowState == WindowState.Maximized;
+
+            MainWindow main_win = new MainWindow
+            {
+                Width = WindowStateManager.Width,
+                Height = WindowStateManager.Height,
+                Top = WindowStateManager.Top,
+                Left = WindowStateManager.Left,
+                WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
+            };
 
             main_win.Show();
 
@@ -75,7 +88,21 @@ namespace CoinApp.Views
 
         private void Markets_Button_Click(object sender, RoutedEventArgs e)
         {
-            MarketsView marketsView = new MarketsView();
+            // Збереження стану вікна
+            WindowStateManager.Width = this.Width;
+            WindowStateManager.Height = this.Height;
+            WindowStateManager.Top = this.Top;
+            WindowStateManager.Left = this.Left;
+            WindowStateManager.IsMaximized = this.WindowState == WindowState.Maximized;
+
+            MarketsView marketsView = new MarketsView
+            {
+                Width = WindowStateManager.Width,
+                Height = WindowStateManager.Height,
+                Top = WindowStateManager.Top,
+                Left = WindowStateManager.Left,
+                WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
+            };
 
             marketsView.Show();
 
