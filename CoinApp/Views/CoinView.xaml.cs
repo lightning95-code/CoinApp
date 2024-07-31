@@ -1,4 +1,5 @@
 ﻿using CoinApp.Utilities;
+using CoinApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,16 @@ namespace CoinApp.Views
     {
 
         private bool IsMaximized = false; //максимізація вікна
-        public CoinView()
+        private string _coinId;
+
+        private CoinViewModel _viewModel;
+        public CoinView(string coinId)
         {
             InitializeComponent();
+            _coinId = coinId;
+
+            _viewModel = new CoinViewModel(coinId);
+            DataContext = _viewModel; //встановлюю дата контекст для вікна
         }
 
         private void Refresh_Button_Click(object sender, RoutedEventArgs e)
@@ -145,7 +153,7 @@ namespace CoinApp.Views
             WindowStateManager.Left = this.Left;
             WindowStateManager.IsMaximized = this.WindowState == WindowState.Maximized;
 
-            CoinView coin_win = new CoinView
+            CoinView coin_win = new CoinView(null)
             {
                 Width = WindowStateManager.Width,
                 Height = WindowStateManager.Height,

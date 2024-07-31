@@ -158,7 +158,7 @@ namespace CoinApp
             WindowStateManager.Left = this.Left;
             WindowStateManager.IsMaximized = this.WindowState == WindowState.Maximized;
 
-            CoinView coin_win = new CoinView
+            CoinView coin_win = new CoinView(null)
             {
                 Width = WindowStateManager.Width,
                 Height = WindowStateManager.Height,

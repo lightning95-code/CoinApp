@@ -15,7 +15,7 @@
             <Grid Width="300" HorizontalAlignment="Left" Height="50">
                 <Border BorderBrush="#999fa8" BorderThickness="2" CornerRadius="8" Margin="40,0,-70,0">
                     <TextBox x:Name="searchTextBox"
-                             Text="Search currency by name..."
+                             Text="Search currency by name or select coin..."
                              Foreground="#575859"
                              FontSize="12"
                              Margin="6 5 50 7"
@@ -31,7 +31,7 @@
                 <Button Style="{StaticResource topButton}"
                         Margin="0 0 -58 0"
                         VerticalAlignment="Center"
-                        HorizontalAlignment="Right">
+                        HorizontalAlignment="Right" Click="Go_To_Coin_Page_Click">
                     <Icon:PackIconMaterial Kind="Magnify" Width="20" Height="20" Foreground="#999fa8" />
                 </Button>
             </Grid>
