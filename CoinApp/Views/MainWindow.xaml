@@ -70,7 +70,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}">
+                            <Button Style="{StaticResource menuButton}" Click="Coin_Button_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Bitcoin" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Coin"/>
@@ -87,7 +87,7 @@
                             <Button Style="{StaticResource menuButton}">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Search"/>
+                                    <TextBlock Text="Market Search"/>
                                 </StackPanel>
                             </Button>
 

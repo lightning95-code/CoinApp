@@ -210,6 +210,16 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
             
+            
+            <!--Coin page styles-->
+            <!--Border-->
+            <Style x:Key="CoinBorder" TargetType="Border">
+                <Setter Property="Background" Value="#73a7c9"/>
+                <Setter Property="CornerRadius" Value="22"/>
+            </Style>
+            
+            
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

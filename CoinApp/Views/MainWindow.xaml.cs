@@ -106,20 +106,6 @@ namespace CoinApp
             timer.Start();
         }
 
-        //Закриття цього вікна
-        private async void Close_This_Window_Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Запуск анімації скриття поточного вікна
-            DoubleAnimation hideAnimation = new DoubleAnimation();
-            hideAnimation.From = 1.0;
-            hideAnimation.To = 0.0;
-            hideAnimation.Duration = TimeSpan.FromSeconds(0.5);
-            this.BeginAnimation(UIElement.OpacityProperty, hideAnimation);
-
-            await Task.Delay(500);
-            this.Close();
-        }
-
         //Оновлення вікна
         private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -158,6 +144,30 @@ namespace CoinApp
             };
 
             main_win.Show();
+
+            this.Close();
+        }
+
+
+        private void Coin_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Збереження стану вікна
+            WindowStateManager.Width = this.Width;
+            WindowStateManager.Height = this.Height;
+            WindowStateManager.Top = this.Top;
+            WindowStateManager.Left = this.Left;
+            WindowStateManager.IsMaximized = this.WindowState == WindowState.Maximized;
+
+            CoinView coin_win = new CoinView
+            {
+                Width = WindowStateManager.Width,
+                Height = WindowStateManager.Height,
+                Top = WindowStateManager.Top,
+                Left = WindowStateManager.Left,
+                WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
+            };
+
+            coin_win.Show();
 
             this.Close();
         }
