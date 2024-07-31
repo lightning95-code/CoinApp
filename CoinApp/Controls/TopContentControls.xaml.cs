@@ -17,7 +17,6 @@ namespace CoinApp.Controls
         private readonly ApiService _apiService; // Сервіс для взаємодії з API
         private List<string> _currencyNames; // Список всіх назв валют
 
-
         public TopContentControls()
         {
             InitializeComponent();
@@ -31,7 +30,9 @@ namespace CoinApp.Controls
             try
             {
                 var currencies = await _apiService.GetCurrenciesAsync(); // Отримання списку валют з API
-                _currencyNames = currencies.Select(c => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(c.Id)).ToList(); // Отримання імен валют
+                _currencyNames = currencies
+                    .Select(c => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(c.Id))
+                    .ToList(); // Отримання імен валют
             }
             catch (Exception ex)
             {
@@ -43,7 +44,12 @@ namespace CoinApp.Controls
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = searchTextBox.Text.ToLower(); // Отримання введеного тексту в нижньому регістрі
-            if (_currencyNames != null)
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                autoCompletePopup.IsOpen = false;
+            }
+            else if (_currencyNames != null)
             {
                 var filteredNames = _currencyNames
                     .Where(name => name.ToLower().Contains(searchText)) // Фільтрація списку валют
@@ -69,15 +75,7 @@ namespace CoinApp.Controls
         // Обробник отримання фокусу на TextBox
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (searchTextBox.Text == "Search currency by name or select coin...")
-            {
-                searchTextBox.Text = ""; // Очищення тексту при фокусі
-                if (_currencyNames != null && _currencyNames.Count > 0)
-                {
-                    // Якщо список валют не порожній, відкриваємо Popup
-                    autoCompletePopup.IsOpen = true;
-                }
-            }
+            searchTextBox.Text = "";
         }
 
         // Обробник втрати фокусу на TextBox
@@ -87,17 +85,16 @@ namespace CoinApp.Controls
             {
                 searchTextBox.Text = "Search currency by name or select coin..."; // Відновлення тексту при втраті фокусу
             }
+
             autoCompletePopup.IsOpen = false;
         }
 
         // Обробник натискання кнопки закриття вікна
         private async void Close_This_Window_Button_Click(object sender, RoutedEventArgs e)
         {
-            // Отримання посилання на вікно, в якому знаходиться UserControl
             Window window = Window.GetWindow(this);
 
-            if (window == null)
-                return;
+            if (window == null) return;
 
             DoubleAnimation fadeOutAnimation = new DoubleAnimation
             {
@@ -116,7 +113,6 @@ namespace CoinApp.Controls
         // Метод для переходу на сторінку з інформацією про валюту
         private async void Go_To_Coin_Page(string selectedName)
         {
-            // Отримання вікна, в якому знаходиться UserControl
             Window window = Window.GetWindow(this);
 
             if (window == null)
@@ -140,7 +136,6 @@ namespace CoinApp.Controls
                 Top = WindowStateManager.Top,
                 Left = WindowStateManager.Left,
                 WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
-
             };
 
             coin_win.Show();
@@ -148,11 +143,9 @@ namespace CoinApp.Controls
             // Додатково, затримка для забезпечення відкриття нового вікна перед закриттям старого
             await Task.Delay(100);
 
-            // Закриття поточного вікна
-            window.Close();
+            window.Close(); // Закриття поточного вікна
+
         }
-
-
 
         // Обробник натискання кнопки для переходу на сторінку з інформацією про валюту
         private void Go_To_Coin_Page_Click(object sender, RoutedEventArgs e)

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Windows;
 
 
 namespace CoinApp.Services
@@ -23,12 +24,36 @@ namespace CoinApp.Services
         // Отримання даних про конкретну криптовалюту за ідом
         public async Task<Currency> GetCurrencyDetailsAsync(string id)
         {
-            var response = await _httpClient.GetAsync($"v2/assets/{id}"); // запрос отримання даних про конкретну криптовалюту за ідом
-            response.EnsureSuccessStatusCode(); // Перевіряє, чи статус-код відповіді є успішним
-            var json = await response.Content.ReadAsStringAsync(); // читає вміст відповіді як рядок (JSON)
-            var result = JsonConvert.DeserializeObject<ApiResponse<Currency>>(json); // Десериализация, повертаємо дані у ApiResponseList<Currency>
-            return result.Data;
+            try
+            {
+                var response = await _httpClient.GetAsync($"v2/assets/{id}"); // Запрос отримання даних про конкретну криптовалюту за ID
+                response.EnsureSuccessStatusCode(); // Перевіряє, чи статус-код відповіді є успішним
+
+                var json = await response.Content.ReadAsStringAsync(); // Читає вміст відповіді як рядок (JSON)
+                var result = JsonConvert.DeserializeObject<ApiResponse<Currency>>(json); // Десеріалізація, повертаємо дані у ApiResponse<Currency>
+
+                return result.Data;
+            }
+            catch (HttpRequestException ex)
+            {
+                // Обробка помилки запиту
+                MessageBox.Show($"Error fetching currency details: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null; // Повертаємо null, якщо сталася помилка
+            }
+            catch (JsonException ex)
+            {
+                // Обробка помилки десеріалізації
+                MessageBox.Show($"Error parsing currency details: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null; // Повертаємо null, якщо сталася помилка
+            }
+            catch (Exception ex)
+            {
+                // Обробка інших можливих помилок
+                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null; // Повертаємо null, якщо сталася помилка
+            }
         }
+
 
         // Метод для отримання усіх валют
         public async Task<Currency[]> GetCurrenciesAsync()
