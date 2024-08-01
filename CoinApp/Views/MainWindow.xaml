@@ -135,7 +135,7 @@
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
                                     <StackPanel Orientation = "Horizontal" >
-                                        <Button Style = "{StaticResource GridDetailButton}">
+                                        <Button Style = "{StaticResource GridDetailButton}" Click="Go_To_Coin_Page_Click" Tag="{Binding Id}">
                                             <Icon:PackIconMaterial Kind = "Details" Style="{StaticResource GridButttonIcon}"/>
                                         </Button>
                                     </StackPanel>

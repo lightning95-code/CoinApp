@@ -1,27 +1,27 @@
-﻿using CoinApp.ViewModels;
+﻿using CoinApp.Utilities;
+using CoinApp.ViewModels;
 using CoinApp.Views;
-using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
-using CoinApp.Utilities;
 
 namespace CoinApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логіка взаємодії для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool IsMaximized = false; //максимізація вікна
+        private bool IsMaximized = false; // Максимізація вікна
         private CurrenciesViewModel _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
             _viewModel = new CurrenciesViewModel();
-            DataContext = _viewModel; //встановлюю дата контекст для вікна
+            DataContext = _viewModel; // Встановлюємо DataContext для вікна
         }
 
         private void Show_Top_10_Currencies_Button_Click(object sender, RoutedEventArgs e)
@@ -32,7 +32,7 @@ namespace CoinApp
                 _viewModel.RefreshDataAsync();
 
                 Top_Currencies_button_Icon.Visibility = Visibility.Visible;
-                All_Currencies_button.Margin = new Thickness(40, 0, 30, 0); 
+                All_Currencies_button.Margin = new Thickness(40, 0, 30, 0);
                 All_Currencies_button_Icon.Visibility = Visibility.Collapsed;
             }
         }
@@ -46,11 +46,11 @@ namespace CoinApp
 
                 All_Currencies_button_Icon.Visibility = Visibility.Visible;
                 All_Currencies_button.Margin = new Thickness(40, 0, 0, 0);
-                Top_Currencies_button_Icon.Visibility = Visibility.Collapsed;     
+                Top_Currencies_button_Icon.Visibility = Visibility.Collapsed;
             }
         }
 
-        //Максимізація вікна
+        // Максимізація вікна
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -70,7 +70,7 @@ namespace CoinApp
             }
         }
 
-        //Переміщення вікна при зажатій ЛКМ
+        // Переміщення вікна при зажатій ЛКМ
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -79,12 +79,12 @@ namespace CoinApp
             }
         }
 
-        //Оновлення вікна
+        // Оновлення вікна
         private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
             if (_viewModel != null)
             {
-                //Робим видимою панель завантаження, а таблицю навпаки приховуємо
+                // Робимо видимою панель завантаження, а таблицю навпаки приховуємо
                 LoadingPanel.Visibility = Visibility.Visible;
                 CurrenciesDataGrid.Visibility = Visibility.Collapsed;
 
@@ -92,9 +92,51 @@ namespace CoinApp
 
                 await Task.Delay(2500);
 
-                // Робим видимою таблицю, а панель навпаки приховуємо
+                // Робимо видимою таблицю, а панель навпаки приховуємо
                 LoadingPanel.Visibility = Visibility.Collapsed;
                 CurrenciesDataGrid.Visibility = Visibility.Visible;
+            }
+        }
+
+        private async void Go_To_Coin_Page_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                // Отримуємо ID валюти з тегу кнопки
+                string currencyId = button.Tag as string;
+
+                if (!string.IsNullOrEmpty(currencyId))
+                {
+                    // Збереження стану поточного вікна
+                    WindowStateManager.Width = this.Width;
+                    WindowStateManager.Height = this.Height;
+                    WindowStateManager.Top = this.Top;
+                    WindowStateManager.Left = this.Left;
+                    WindowStateManager.IsMaximized = this.WindowState == WindowState.Maximized;
+
+                    // Створення нового вікна для перегляду детальної інформації про валюту
+                    CoinView coinWin = new CoinView(currencyId)
+                    {
+                        Width = WindowStateManager.Width,
+                        Height = WindowStateManager.Height,
+                        Top = WindowStateManager.Top,
+                        Left = WindowStateManager.Left,
+                        WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
+                    };
+
+                    coinWin.Show();
+
+                    // Додатково, затримка для забезпечення відкриття нового вікна перед закриттям старого
+                    await Task.Delay(100);
+
+                    // Закриття поточного вікна
+                    this.Close();
+                }
+                else
+                {
+                    // Виводимо повідомлення, якщо ID валюти не знайдено
+                    MessageBox.Show("Currency ID not found.");
+                }
             }
         }
     }
