@@ -94,5 +94,49 @@ namespace CoinApp.Services
             var result = JsonConvert.DeserializeObject<ApiResponseList<Market>>(json); // Десериализация, повертаємо дані у ApiResponseList<Market>
             return result.Data;
         }
+
+        public async Task<List<HistoricalPriceModel>> GetMonthlyHistoricalPricesAsync(string id, DateTime startTime, DateTime endTime)
+        {
+            try
+            {
+                // Перетворення дат на Unix Timestamp в мілісекундах
+                long startUnixTime = new DateTimeOffset(startTime).ToUnixTimeMilliseconds();
+                long endUnixTime = new DateTimeOffset(endTime).ToUnixTimeMilliseconds();
+
+                // Формування та передача URL з параметрами start і end
+                var response = await _httpClient.GetAsync($"v2/assets/{id}/history?interval=d1&start={startUnixTime}&end={endUnixTime}");
+
+                // Перевірка успішності запиту
+                response.EnsureSuccessStatusCode();
+
+                // Зчитування вмісту відповіді як рядок (JSON)
+                var json = await response.Content.ReadAsStringAsync();
+
+                // Десеріалізація JSON в об'єкти ApiResponseList<HistoricalPriceModel>
+                var result = JsonConvert.DeserializeObject<ApiResponseList<HistoricalPriceModel>>(json);
+
+                // Повернення даних як список
+                return result.Data.ToList();
+            }
+            catch (HttpRequestException ex)
+            {
+                // Handling request error
+                MessageBox.Show($"Error fetching historical data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            catch (JsonException ex)
+            {
+                // Handling JSON parsing error
+                MessageBox.Show($"Error parsing data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Handling other unexpected errors
+                MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
     }
 }
