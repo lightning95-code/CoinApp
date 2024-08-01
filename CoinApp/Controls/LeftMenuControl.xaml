@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="CoinApp.Controls.LeftMenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CoinApp.Controls"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="404" d:DesignWidth="250">
+    <Grid>
+        
+            <!--Menu buttons-->
+        <StackPanel DockPanel.Dock="Top">
+            <Button Style="{StaticResource menuButton}" Click="Main_Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
+                    <TextBlock Text="Main"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource menuButton}" Click="Coin_Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Bitcoin" Style="{StaticResource menuButtonIcon}"/>
+                    <TextBlock Text="Coin"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource menuButton}" Click="Markets_Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="CurrencyUsd" Style="{StaticResource menuButtonIcon}"/>
+                    <TextBlock Text="Markets"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource menuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}"/>
+                    <TextBlock Text="Market Search"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource menuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="CreditCard" Style="{StaticResource menuButtonIcon}"/>
+                    <TextBlock Text="Convert"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

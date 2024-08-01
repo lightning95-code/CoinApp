@@ -62,49 +62,14 @@
                                     <TextBlock Text="Refresh current page"/>
                                 </StackPanel>
                             </Button>
+                            
+                            <!--кнопки лівого меню-->
+                            <controls:LeftMenuControl x:Name="LeftMenuControl"/>
 
-                            <Button Style="{StaticResource menuButton}" Click="Main_Button_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Main"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Style="{StaticResource menuButton}" Click="Coin_Button_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Bitcoin" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Coin"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Style="{StaticResource menuButton}" Click="Markets_Button_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="CurrencyUsd" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Markets"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Market Search"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="CreditCard" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Convert"/>
-                                </StackPanel>
-                            </Button>
                         </StackPanel>
 
-                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 30" Click="Exit_Button_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Exit"/>
-                            </StackPanel>
-                        </Button>
+                        <!--кнопка exit меню-->
+                        <controls:LeftMenuExitButControls x:Name="LeftMenuExitButControls"/>
 
                     </DockPanel>
                 </Border>

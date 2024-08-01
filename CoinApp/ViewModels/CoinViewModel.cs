@@ -11,12 +11,12 @@ namespace CoinApp.ViewModels
     public class CoinViewModel : INotifyPropertyChanged
     {
         private readonly ApiService _apiService;
-        private string _coinId; // Изменено на private и добавлено поле для хранения ID валюты
+        private string _coinId; 
 
         public CoinViewModel(string coinId = null)
         {
             _apiService = new ApiService();
-            _coinId = coinId; // Установка coinId через конструктор
+            _coinId = coinId; 
             LoadCoinData();
         }
 
