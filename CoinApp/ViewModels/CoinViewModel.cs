@@ -193,6 +193,11 @@ namespace CoinApp.ViewModels
             return epoch.AddMilliseconds(unixTimeStampMillis).ToLocalTime(); // Додавання мілісекунд до Epoch і конвертація у локальний час
         }
 
+        public void Refresh_data()
+        {
+            LoadCoinData();
+        }
+
         // Подія для сповіщення про зміни властивостей
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

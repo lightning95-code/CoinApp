@@ -37,10 +37,26 @@ namespace CoinApp.Views
             DataContext = _viewModel; //встановлюю дата контекст для вікна
         }
 
-        private void Refresh_Button_Click(object sender, RoutedEventArgs e)
+        private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (_viewModel!=null)
+            {
+                // Робимо видимою панель завантаження
+                LoadingPanel.Visibility = Visibility.Visible;
+                ChartContainer.Visibility = Visibility.Collapsed;
+                CoinDescriptionContainer.Visibility = Visibility.Collapsed;
 
+                _viewModel.Refresh_data();
+
+                await Task.Delay(2500); // Затримка для демонстрації завантаження
+
+                // Приховуємо панель завантаження
+                LoadingPanel.Visibility = Visibility.Collapsed;
+                CoinDescriptionContainer.Visibility=Visibility.Visible;
+                ChartContainer.Visibility = Visibility.Visible;
+            }
         }
+
 
         //Максимізація вікна
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

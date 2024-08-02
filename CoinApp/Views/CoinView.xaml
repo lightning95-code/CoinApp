@@ -89,20 +89,31 @@
                 <controls:TopContentControls x:Name="TopContentControls" Grid.Row="0"/>
 
                 <!--Page title-->
-                <TextBlock x:Name="PageTitle"  Text="Coin details" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="40,20,0,0"
-                HorizontalAlignment="Left" Foreground="#121518" Grid.RowSpan="6"/>
+                <TextBlock x:Name="PageTitle" Text="Coin details" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="40,20,0,0" HorizontalAlignment="Left" Foreground="#121518" Grid.RowSpan="6"/>
 
                 <!--Separator-->
                 <Separator Height="8" Grid.Row="2" Background="Black" Margin="0 75 0 10"/>
 
                 <Border Style="{StaticResource CoinBorder}" Grid.Row="4">
+                    
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width = "*"/>
                             <ColumnDefinition Width = "auto" MinWidth="250"/>
                         </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Column="0">
+                        <!-- Панель завантаження -->
+                        <Grid x:Name="LoadingPanel" Visibility="Collapsed" Background="Transparent" Opacity="0.8" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 115" Grid.ColumnSpan="2">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Width="300" Height="150">
+                                <!-- Повідомленя -->
+                                <TextBlock Text="Loading..." FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="11 -3 0 0"/>
+                                <!-- Полоса виконання -->
+                                <ProgressBar IsIndeterminate="True" Width="200" Height="20" Margin="10" Foreground="Blue" BorderBrush="#15354a" BorderThickness="2" Background="#bfd3e0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Container for the chart -->
+                        <Grid x:Name="ChartContainer" Grid.Column="0">
                             <Grid.Resources>
                                 <Style TargetType="lvc:LineSeries">
                                     <Setter Property="StrokeThickness" Value="5"></Setter>
@@ -111,37 +122,31 @@
                                     <Setter Property="PointGeometrySize" Value="16"></Setter>
                                     <Setter Property="PointForeground" Value="#e6e7fa"></Setter>
                                     <Setter Property="LineSmoothness" Value="1"></Setter>
-
                                 </Style>
                                 <Style TargetType="lvc:Axis">
                                     <Setter Property="ShowLabels" Value="True"></Setter>
                                     <Setter Property="IsEnabled" Value="True"></Setter>
                                     <Setter Property="Foreground" Value="Black"/>
                                 </Style>
-
                                 <Style TargetType="lvc:Separator">
                                     <Setter Property="StrokeThickness" Value="0.1"/>
                                     <Setter Property="Stroke" Value="#5e5b85"/>
                                 </Style>
-
                             </Grid.Resources>
 
                             <Border Background="#d9effc" Margin="10, 10, 10, 10" CornerRadius="22">
                                 <lvc:CartesianChart Series="{Binding SeriesCollection}" Margin="7 0 -15 0">
                                     <lvc:CartesianChart.AxisX>
-                                        <lvc:Axis 
-                                          Labels="{Binding XAxis.Labels}"/>
-                                        
+                                        <lvc:Axis Labels="{Binding XAxis.Labels}"/>
                                     </lvc:CartesianChart.AxisX>
                                     <lvc:CartesianChart.AxisY>
-                                        <lvc:Axis 
-                                          LabelFormatter="{Binding YAxis.LabelFormatter}" />
+                                        <lvc:Axis LabelFormatter="{Binding YAxis.LabelFormatter}" />
                                     </lvc:CartesianChart.AxisY>
                                 </lvc:CartesianChart>
                             </Border>
                         </Grid>
 
-                        <Grid Grid.Column="1">
+                        <Grid Grid.Column="1" x:Name="CoinDescriptionContainer">
                             <Border Background="#bee3fa" Margin="5, 10, 10, 10" CornerRadius="22">
                                 <Grid Margin="15">
                                     <Grid.ColumnDefinitions>
@@ -196,9 +201,11 @@
 
 
                     </Grid>
+                    
                 </Border>
                 
             </Grid>
+
         </Grid>
     </Border>
 
