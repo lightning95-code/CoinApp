@@ -148,7 +148,7 @@ namespace CoinApp.ViewModels
             try
             {
                 // Отримання списку всіх валют
-                var currencies = await _apiService.GetCurrenciesAsync();
+                var currencies = await _apiService.GetTopCurrenciesAsync();
 
                 if (currencies != null && currencies.Length > 0)
                 {

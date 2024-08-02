@@ -86,13 +86,22 @@ namespace CoinApp.Services
         }
 
         // Метод отримання ринків конкретної валюти
-        public async Task<Market[]> GetMarketsForCurrencyAsync(string id)
+        public async Task<CurrencyMarketData> GetMarketsForCurrencyAsync(string id)
         {
-            var response = await _httpClient.GetAsync($"v2/markets?baseId={id}"); // запит отримання даних за baseId (ід базової валюти)
+            var response = await _httpClient.GetAsync($"v2/markets?baseId={id}"); // Запит отримання даних за baseId (ідентифікатор базової валюти)
             response.EnsureSuccessStatusCode(); // Перевіряє, чи статус-код відповіді є успішним
-            var json = await response.Content.ReadAsStringAsync(); // читає вміст відповіді як рядок (JSON)
-            var result = JsonConvert.DeserializeObject<ApiResponseList<Market>>(json); // Десериализация, повертаємо дані у ApiResponseList<Market>
-            return result.Data;
+            var json = await response.Content.ReadAsStringAsync(); // Читає вміст відповіді як рядок (JSON)
+
+            // Десериалізація JSON у ApiResponseList<Market>
+            var result = JsonConvert.DeserializeObject<ApiResponseList<Market>>(json);
+
+            // Створення об'єкта CurrencyMarketData та заповнення його даними
+            var currencyMarketData = new CurrencyMarketData
+            {
+                Markets = new List<Market>(result.Data)
+            };
+
+            return currencyMarketData;
         }
 
         public async Task<List<HistoricalPriceModel>> GetMonthlyHistoricalPricesAsync(string id, DateTime startTime, DateTime endTime)

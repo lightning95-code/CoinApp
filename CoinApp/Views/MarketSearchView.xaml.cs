@@ -1,5 +1,4 @@
-﻿using CoinApp.Utilities;
-using CoinApp.ViewModels;
+﻿using CoinApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,54 +10,34 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace CoinApp.Views
 {
     /// <summary>
-    /// Interaction logic for CoinView.xaml
+    /// Interaction logic for MarketSearchView.xaml
     /// </summary>
-    public partial class CoinView : Window
+    public partial class MarketSearchView : Window
     {
-
-        private bool IsMaximized = false; //максимізація вікна
+        private bool IsMaximized = false; // Максимізація вікна
         private string _coinId;
 
-        private CoinViewModel _viewModel;
-        public CoinView(string coinId)
+        private MarketSearchViewModel _viewModel;
+        public MarketSearchView(string coinId)
         {
             InitializeComponent();
             _coinId = coinId;
 
-            _viewModel = new CoinViewModel(_coinId);
+            _viewModel = new MarketSearchViewModel(_coinId);
             DataContext = _viewModel; //встановлюю дата контекст для вікна
         }
 
-        private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (_viewModel!=null)
-            {
-                // Робимо видимою панель завантаження
-                LoadingPanel.Visibility = Visibility.Visible;
-                ChartContainer.Visibility = Visibility.Collapsed;
-                CoinDescriptionContainer.Visibility = Visibility.Collapsed;
+        private async void Refresh_Button_Click(object sender, RoutedEventArgs e) {
 
-                _viewModel.Refresh_data();
-
-                await Task.Delay(2500); // Затримка для демонстрації завантаження
-
-                // Приховуємо панель завантаження
-                LoadingPanel.Visibility = Visibility.Collapsed;
-                CoinDescriptionContainer.Visibility=Visibility.Visible;
-                ChartContainer.Visibility = Visibility.Visible;
-            }
         }
-
-
-        //Максимізація вікна
+        
+        // Максимізація вікна
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -78,7 +57,7 @@ namespace CoinApp.Views
             }
         }
 
-        //Переміщення вікна при зажатій ЛКМ
+        // Переміщення вікна при зажатій ЛКМ
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)

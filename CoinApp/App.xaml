@@ -227,6 +227,11 @@
                 <Setter Property="Fill" Value="LightBlue"/>
             </Style>
 
+            <Style x:Key="CenteredTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+            </Style>
+
 
         </ResourceDictionary>
     </Application.Resources>

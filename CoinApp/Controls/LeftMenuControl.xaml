@@ -32,7 +32,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Style="{StaticResource menuButton}">
+            <Button Style="{StaticResource menuButton}" Click="Markets_Search_Button_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}"/>
                     <TextBlock Text="Market Search"/>

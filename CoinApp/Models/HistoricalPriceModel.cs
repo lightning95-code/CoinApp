@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace CoinApp.Models
 {
     public class HistoricalPriceModel
     {
-        // Дата, на яку відноситься ціна 
+        [JsonProperty("time")]
         public long Time { get; set; } // Unix-мітка часу
 
-        // Ціна криптовалюти на конкретну дату
-        public decimal PriceUsd { get; set; }
+        [JsonProperty("priceUsd")]
+        public decimal PriceUsd { get; set; } // Ціна криптовалюти на конкретну дату
     }
 }
