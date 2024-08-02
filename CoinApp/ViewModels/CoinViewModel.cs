@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System.Globalization;
 
 namespace CoinApp.ViewModels
 {
@@ -110,7 +111,7 @@ namespace CoinApp.ViewModels
                     YAxis = new Axis
                     {
                         Title = "Price", // Заголовок осі Y
-                        LabelFormatter = value => value.ToString("C") // Форматування міток осі Y
+                        LabelFormatter = value => value.ToString("C", new CultureInfo("en-US"))//щоб у доларах
                     };
                 }
                 else

@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:CoinApp"
              xmlns:Icon ="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              StartupUri="Views/MainWindow.xaml">
     
     <Application.Resources>
@@ -217,9 +218,16 @@
                 <Setter Property="Background" Value="#73a7c9"/>
                 <Setter Property="CornerRadius" Value="22"/>
             </Style>
-            
-            
-            
+
+
+            <Style x:Key="GraphLine" TargetType="lvc:LineSeries">
+                <!--Колір лінії графіка-->
+                <Setter Property="Stroke" Value="Blue"/>
+                <!--Колір заливки під лінією-->
+                <Setter Property="Fill" Value="LightBlue"/>
+            </Style>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
