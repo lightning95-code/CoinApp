@@ -15,6 +15,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using static MaterialDesignThemes.Wpf.Theme;
 
 namespace CoinApp.Views
 {
@@ -35,6 +36,44 @@ namespace CoinApp.Views
 
             _viewModel = new CoinViewModel(_coinId);
             DataContext = _viewModel; //встановлюю дата контекст для вікна
+        }
+
+        private async void Go_To_Market_Search_Page(object sender, RoutedEventArgs e)
+        {
+            string currencyId = _coinId;
+
+            if (!string.IsNullOrEmpty(currencyId))
+            {
+                // Збереження стану поточного вікна
+                WindowStateManager.Width = this.Width;
+                WindowStateManager.Height = this.Height;
+                WindowStateManager.Top = this.Top;
+                WindowStateManager.Left = this.Left;
+                WindowStateManager.IsMaximized = this.WindowState == WindowState.Maximized;
+
+                // Створення нового вікна для перегляду детальної інформації про валюту
+                MarketSearchView  MarketSeacrhWin = new MarketSearchView(currencyId)
+                {
+                    Width = WindowStateManager.Width,
+                    Height = WindowStateManager.Height,
+                    Top = WindowStateManager.Top,
+                    Left = WindowStateManager.Left,
+                    WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
+                };
+
+                MarketSeacrhWin.Show();
+
+                // Додатково, затримка для забезпечення відкриття нового вікна перед закриттям старого
+                await Task.Delay(100);
+
+                // Закриття поточного вікна
+                this.Close();
+            }
+            else
+            {
+                // Виводимо повідомлення, якщо ID валюти не знайдено
+                MessageBox.Show("Currency ID not found.");
+            }
         }
 
         private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
@@ -86,5 +125,6 @@ namespace CoinApp.Views
                 this.DragMove();
             }
         }
+
     }
 }

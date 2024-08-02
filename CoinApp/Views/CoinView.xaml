@@ -163,7 +163,9 @@
                                         <RowDefinition Height="50" />
                                         <RowDefinition Height="50" />
                                         <RowDefinition Height="50" />
-                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="10" />
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="10"/>
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Text="{Binding Coin.Name}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2"/>
@@ -195,6 +197,14 @@
 
                                     <TextBlock Text="Supply:" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center" Grid.Row="7" Grid.Column="0"/>
                                     <TextBlock Text="{Binding Coin.Supply, StringFormat={}{0:F2}}" FontSize="12" VerticalAlignment="Center" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right"/>
+
+                                    <Button Grid.Row="9" Grid.ColumnSpan="2" Height="50" Background="#2c6c99" BorderBrush="#1d4866" Click="Go_To_Market_Search_Page">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Icon:PackIconMaterial Kind="Cash" Style="{StaticResource menuButtonIcon}" Margin="0 2 10 0"/>
+                                            <TextBlock Text="Markets for purchasing"/>
+                                        </StackPanel>
+                                    </Button>
+
                                 </Grid>
                             </Border>
                         </Grid>
