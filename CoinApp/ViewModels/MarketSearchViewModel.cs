@@ -2,6 +2,8 @@
 using CoinApp.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -10,9 +12,10 @@ namespace CoinApp.ViewModels
     public class MarketSearchViewModel : INotifyPropertyChanged
     {
         private string _coinId; // Ідентифікатор криптовалюти
-
         private readonly ApiService _apiService;
         private ObservableCollection<Market> _markets;
+        private ObservableCollection<string> _currencyNames; // Список назв валют
+        private string _selectedCurrencyName; // Обрана валюта
 
         public ObservableCollection<Market> Markets
         {
@@ -27,78 +30,124 @@ namespace CoinApp.ViewModels
             }
         }
 
-        public MarketSearchViewModel(string coinId = null)
+        public ObservableCollection<string> CurrencyNames
+        {
+            get => _currencyNames;
+            set
+            {
+                if (_currencyNames != value)
+                {
+                    _currencyNames = value;
+                    OnPropertyChanged(nameof(CurrencyNames));
+                }
+            }
+        }
+
+        public string SelectedCurrencyName
+        {
+            get => _selectedCurrencyName;
+            set
+            {
+                if (_selectedCurrencyName != value)
+                {
+                    _selectedCurrencyName = value;
+                    OnPropertyChanged(nameof(SelectedCurrencyName));
+                    LoadMarketsForSelectedCurrency();
+                }
+            }
+        }
+
+        public MarketSearchViewModel(string coinId)
         {
             _apiService = new ApiService();
             _coinId = coinId;
             LoadMarkets(); // Завантаження даних за замовчуванням
+            LoadCurrencyNames(); // Завантаження назв валют
+        }
+
+        private async void LoadMarketsForSelectedCurrency()
+        {
+            if (!string.IsNullOrEmpty(SelectedCurrencyName))
+            {
+                try
+                {
+                    var currencies = await _apiService.GetCurrenciesAsync();
+                    var selectedCurrency = currencies.FirstOrDefault(c => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(c.Id) == SelectedCurrencyName);
+                    if (selectedCurrency != null)
+                    {
+                        await LoadMarketsForCoin(selectedCurrency.Id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to load markets for selected currency: {ex.Message}");
+                }
+            }
         }
 
         private async void LoadMarkets()
         {
             if (string.IsNullOrEmpty(_coinId))
             {
-                // Якщо ідентифікатор валюти не вказаний, завантажити дані за замовчуванням
-                LoadMarketsForFirstCoin();
+                try
+                {
+                    var currencies = await _apiService.GetTopCurrenciesAsync();
+                    if (currencies != null && currencies.Length > 0)
+                    {
+                        _coinId = currencies[0].Id;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No currencies available.");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading initial data: {ex.Message}");
+                }
             }
-            else
+            SelectedCurrencyName = !string.IsNullOrEmpty(_coinId) ? CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_coinId.ToLower()) : null;
+            try
             {
-                // Якщо ідентифікатор валюти вказаний, завантажити дані для цієї валюти
                 await LoadMarketsForCoin(_coinId);
             }
-  
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading markets data: {ex.Message}");
+            }
         }
 
-        private async Task LoadMarketsForCoin(string coin_id)
+        private async Task LoadMarketsForCoin(string coinId)
         {
             try
             {
-                // Отримання даних про ринки для конкретної валюти
-                CurrencyMarketData currencyMarketData = await _apiService.GetMarketsForCurrencyAsync(coin_id);
-
-                // встановлюємо номера 
+                var currencyMarketData = await _apiService.GetMarketsForCurrencyAsync(coinId);
                 int rowNumber = 1;
                 foreach (var market in currencyMarketData.Markets)
                 {
                     market.RowNumber = rowNumber++;
                 }
-
-                // Оновлення колекції ринків
                 Markets = new ObservableCollection<Market>(currencyMarketData.Markets);
             }
             catch (Exception ex)
             {
-                // Обробка помилок
                 MessageBox.Show($"Error loading markets data: {ex.Message}");
             }
         }
 
-        private async void LoadMarketsForFirstCoin()
+        private async void LoadCurrencyNames()
         {
             try
             {
-                // Отримання списку всіх валют
-                var currencies = await _apiService.GetTopCurrenciesAsync();
-
-                if (currencies != null && currencies.Length > 0)
-                {
-                    // Отримання ідентифікатора першої валюти в списку
-                    string firstCoinId = currencies[0].Id;
-                    await LoadMarketsForCoin(firstCoinId); // Завантаження даних для першої валюти
-
-                    // Заповнення ComboBox або іншого елемента інтерфейсу
-
-                }
-                else
-                {
-                    // Відображення повідомлення про відсутність даних
-                    MessageBox.Show("No currencies available.");
-                }
+                var currencies = await _apiService.GetCurrenciesAsync();
+                CurrencyNames = new ObservableCollection<string>(
+                    currencies.Select(c => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(c.Id))
+                );
             }
             catch (Exception ex)
             {
-                // Обробка помилок
-                MessageBox.Show($"Error loading initial data: {ex.Message}");
+                MessageBox.Show($"Failed to load currency names: {ex.Message}");
             }
         }
 

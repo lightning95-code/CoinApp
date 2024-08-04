@@ -21,22 +21,38 @@ namespace CoinApp.Views
     public partial class MarketSearchView : Window
     {
         private bool IsMaximized = false; // Максимізація вікна
-        private string _coinId;
 
         private MarketSearchViewModel _viewModel;
         public MarketSearchView(string coinId)
         {
             InitializeComponent();
-            _coinId = coinId;
-
-            _viewModel = new MarketSearchViewModel(_coinId);
-            DataContext = _viewModel; //встановлюю дата контекст для вікна
+            _viewModel = new MarketSearchViewModel(coinId);
+            DataContext = _viewModel;
         }
 
-        private async void Refresh_Button_Click(object sender, RoutedEventArgs e) {
+        private void CurrencyComboBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (CurrencyComboBox != null && CurrencyComboBox.Text == "Select coin")
+            {
+                CurrencyComboBox.Text = "";      
+            }
+            CurrencyComboBox.IsDropDownOpen = true;
+        }
+
+        private void CurrencyComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (CurrencyComboBox == null || CurrencyComboBox.Text == "")
+            {
+                CurrencyComboBox.Text = "Select coin";
+            }
+            CurrencyComboBox.IsDropDownOpen = false;
+        }
+
+        private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
+        {
 
         }
-        
+
         // Максимізація вікна
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

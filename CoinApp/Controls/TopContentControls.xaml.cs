@@ -150,7 +150,14 @@ namespace CoinApp.Controls
         // Обробник натискання кнопки для переходу на сторінку з інформацією про валюту
         private void Go_To_Coin_Page_Click(object sender, RoutedEventArgs e)
         {
-            Go_To_Coin_Page(searchTextBox.Text); // Передача тексту пошуку у CoinView
+            if (string.IsNullOrEmpty(searchTextBox.Text))
+            {
+                Go_To_Coin_Page(searchTextBox.Text); // Передача тексту пошуку у CoinView
+            }
+            else
+            {
+                MessageBox.Show("Please, Input correct text!"); 
+            }
         }
     }
 }

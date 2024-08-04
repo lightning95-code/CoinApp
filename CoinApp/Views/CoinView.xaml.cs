@@ -42,6 +42,12 @@ namespace CoinApp.Views
         {
             string currencyId = _coinId;
 
+            if (string.IsNullOrEmpty(currencyId))
+            {
+                // Отримання ID першої валюти з ViewModel, якщо ID валюти не вказано
+                currencyId = await _viewModel.GetFirstCurrencyIdAsync();
+            }
+
             if (!string.IsNullOrEmpty(currencyId))
             {
                 // Збереження стану поточного вікна
@@ -52,7 +58,7 @@ namespace CoinApp.Views
                 WindowStateManager.IsMaximized = this.WindowState == WindowState.Maximized;
 
                 // Створення нового вікна для перегляду детальної інформації про валюту
-                MarketSearchView  MarketSeacrhWin = new MarketSearchView(currencyId)
+                MarketSearchView MarketSearchWin = new MarketSearchView(currencyId)
                 {
                     Width = WindowStateManager.Width,
                     Height = WindowStateManager.Height,
@@ -61,7 +67,7 @@ namespace CoinApp.Views
                     WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
                 };
 
-                MarketSeacrhWin.Show();
+                MarketSearchWin.Show();
 
                 // Додатково, затримка для забезпечення відкриття нового вікна перед закриттям старого
                 await Task.Delay(100);
@@ -72,7 +78,7 @@ namespace CoinApp.Views
             else
             {
                 // Виводимо повідомлення, якщо ID валюти не знайдено
-                MessageBox.Show("Currency ID not found.");
+                MessageBox.Show("No currency ID found.");
             }
         }
 

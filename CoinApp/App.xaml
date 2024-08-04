@@ -232,6 +232,7 @@
                 <Setter Property="TextAlignment" Value="Center"/>
             </Style>
 
+           
 
         </ResourceDictionary>
     </Application.Resources>

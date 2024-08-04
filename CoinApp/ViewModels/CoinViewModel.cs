@@ -198,6 +198,12 @@ namespace CoinApp.ViewModels
             LoadCoinData();
         }
 
+        public async Task<string> GetFirstCurrencyIdAsync()
+        {
+            var currencies = await _apiService.GetTopCurrenciesAsync();
+            return currencies != null && currencies.Length > 0 ? currencies[0].Id : null;
+        }
+
         // Подія для сповіщення про зміни властивостей
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
