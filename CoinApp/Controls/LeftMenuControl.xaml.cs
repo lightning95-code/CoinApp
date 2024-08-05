@@ -154,5 +154,41 @@ namespace CoinApp.Controls
 
             window.Close(); // Закриття поточного вікна
         }
+
+
+        // Перехід до ConvertView
+        private async void Convert_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+
+            if (window == null)
+            {
+                MessageBox.Show("Window not found."); // Обробка випадку, коли вікно не знайдене
+                return;
+            }
+
+            // Збереження стану вікна
+            WindowStateManager.Width = window.Width;
+            WindowStateManager.Height = window.Height;
+            WindowStateManager.Top = window.Top;
+            WindowStateManager.Left = window.Left;
+            WindowStateManager.IsMaximized = window.WindowState == WindowState.Maximized;
+
+            ConvertView convertView = new ConvertView
+            {
+                Width = WindowStateManager.Width,
+                Height = WindowStateManager.Height,
+                Top = WindowStateManager.Top,
+                Left = WindowStateManager.Left,
+                WindowState = WindowStateManager.IsMaximized ? WindowState.Maximized : WindowState.Normal
+            };
+
+            convertView.Show();
+
+            // Додатково, затримка для забезпечення відкриття нового вікна перед закриттям старого
+            await Task.Delay(100);
+
+            window.Close(); // Закриття поточного вікна
+        }
     }
 }
