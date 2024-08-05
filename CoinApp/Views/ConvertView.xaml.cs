@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoinApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace CoinApp.Views
     public partial class ConvertView : Window
     {
         private bool IsMaximized = false; // Максимізація вікна
+
+        private ConvertViewModel _viewModel;
         public ConvertView()
         {
             InitializeComponent();
+            _viewModel = new ConvertViewModel();
+            DataContext = _viewModel;
         }
 
         // Максимізація вікна
@@ -45,6 +50,30 @@ namespace CoinApp.Views
             }
         }
 
+        private void ComboBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is ComboBox comboBox)
+            {
+                comboBox.IsDropDownOpen = true;
+            }
+            else
+            {
+                MessageBox.Show($"{sender} is not a ComboBox.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ComboBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is ComboBox comboBox)
+            {
+                comboBox.IsDropDownOpen = false;
+            }
+            else
+            {
+                MessageBox.Show($"{sender} is not a ComboBox.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         // Переміщення вікна при зажатій ЛКМ
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -59,6 +88,15 @@ namespace CoinApp.Views
         {
 
         }
-        
+
+        private void Get_Exchange_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_viewModel.FirstSelectedCurrencyName) ||
+                 string.IsNullOrEmpty(_viewModel.SecondSelectedCurrencyName))
+            {
+                MessageBox.Show("Please select both currencies.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+        }
     }
 }

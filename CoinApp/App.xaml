@@ -232,7 +232,42 @@
                 <Setter Property="TextAlignment" Value="Center"/>
             </Style>
 
-           
+            <!--text box for convert style for input amount-->
+            <Style x:Key="textboxConvert" TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Grid.Row" Value="2"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Height" Value="24"/>
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Margin" Value="2 2 0 0"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+
+            <Style x:Key="ComboBoxForConvert" TargetType="ComboBox">
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Width" Value="115"/>
+                <Setter Property="IsEditable" Value="True"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="5 6"/>
+                <Setter Property="FontSize" Value="11"/>
+
+            </Style>
+
+            <!--text box for result on convert page-->
+            <Style x:Key="TextBoxForResultOfConvert" TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Margin" Value="40 20 0 10"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>
