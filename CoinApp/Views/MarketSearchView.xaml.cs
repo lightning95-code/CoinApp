@@ -51,13 +51,14 @@ namespace CoinApp.Views
         // Оновлення вікна
         private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
+            string actual_coin_id = CurrencyComboBox.SelectedItem as string;
             if (_viewModel != null)
             {
                 // Робимо видимою панель завантаження, а таблицю навпаки приховуємо
                 LoadingPanel.Visibility = Visibility.Visible;
                 MarketsSearchDataGrid.Visibility = Visibility.Collapsed;
 
-                await _viewModel.RefreshDataAsync();
+                await _viewModel.RefreshDataAsync(actual_coin_id.ToLower());
 
                 await Task.Delay(2500);
 

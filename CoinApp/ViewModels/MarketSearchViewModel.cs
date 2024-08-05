@@ -152,8 +152,9 @@ namespace CoinApp.ViewModels
         }
 
 
-        public async Task RefreshDataAsync()
+        public async Task RefreshDataAsync(string coin_id)
         {
+            _coinId = coin_id;
             LoadMarkets(); // Завантаження даних за замовчуванням
             LoadCurrencyNames(); // Завантаження назв валют
         }
