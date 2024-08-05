@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace CoinApp.ViewModels
 {
-    public class CurrenciesViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Currency> _currencies;
 
@@ -29,7 +29,7 @@ namespace CoinApp.ViewModels
         }
 
 
-        public CurrenciesViewModel()
+        public MainViewModel()
         {
             _apiService = new ApiService();
             LoadTopCurrencies(); //за замовчуванням

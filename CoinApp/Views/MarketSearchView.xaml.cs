@@ -48,9 +48,23 @@ namespace CoinApp.Views
             CurrencyComboBox.IsDropDownOpen = false;
         }
 
+        // Оновлення вікна
         private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (_viewModel != null)
+            {
+                // Робимо видимою панель завантаження, а таблицю навпаки приховуємо
+                LoadingPanel.Visibility = Visibility.Visible;
+                MarketsSearchDataGrid.Visibility = Visibility.Collapsed;
 
+                await _viewModel.RefreshDataAsync();
+
+                await Task.Delay(2500);
+
+                // Робимо видимою таблицю, а панель навпаки приховуємо
+                LoadingPanel.Visibility = Visibility.Collapsed;
+                MarketsSearchDataGrid.Visibility = Visibility.Visible;
+            }
         }
 
         // Максимізація вікна

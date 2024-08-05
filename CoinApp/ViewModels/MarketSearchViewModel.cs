@@ -151,6 +151,13 @@ namespace CoinApp.ViewModels
             }
         }
 
+
+        public async Task RefreshDataAsync()
+        {
+            LoadMarkets(); // Завантаження даних за замовчуванням
+            LoadCurrencyNames(); // Завантаження назв валют
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)

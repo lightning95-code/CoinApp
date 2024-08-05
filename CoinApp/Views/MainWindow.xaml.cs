@@ -15,12 +15,12 @@ namespace CoinApp
     public partial class MainWindow : Window
     {
         private bool IsMaximized = false; // Максимізація вікна
-        private CurrenciesViewModel _viewModel;
+        private MainViewModel _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            _viewModel = new CurrenciesViewModel();
+            _viewModel = new MainViewModel();
             DataContext = _viewModel; // Встановлюємо DataContext для вікна
         }
 
