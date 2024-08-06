@@ -177,17 +177,25 @@ namespace CoinApp.Controls
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Check if sender is not null and is a ComboBox
+            // Перевірка, чи sender не є null і чи sender є ComboBox
             if (sender is ComboBox comboBox)
             {
-                // Check if the selected item is not null
+                // Перевірка, чи вибраний елемент не є null
                 if (comboBox.SelectedItem is ComboBoxItem selectedItem)
                 {
-                    // Get the language code from the selected item
-                    string languageCode = selectedItem.Content.ToString();
+                    // Перевірка, чи Content вибраного елемента не є null
+                    if (selectedItem.Content != null)
+                    {
+                        // Отримання коду мови з вибраного елемента
+                        string languageCode = selectedItem.Content.ToString();
 
-                    // Call the method to change language
-                    ChangeLanguage(languageCode);
+                        // Виклик методу зміни мови
+                        ChangeLanguage(languageCode);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected item content is null.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
                 else
                 {

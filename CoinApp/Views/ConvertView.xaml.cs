@@ -193,7 +193,7 @@ namespace CoinApp.Views
             catch (Exception ex)
             {
                 // Показати повідомлення про помилку
-                MessageBox.Show("Failed to refresh data. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Failed to refresh data. Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

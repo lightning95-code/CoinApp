@@ -24,12 +24,20 @@ namespace CoinApp
             DataContext = _viewModel; // Встановлюємо DataContext для вікна
         }
 
-        private void Show_Top_10_Currencies_Button_Click(object sender, RoutedEventArgs e)
+        private async void Show_Top_10_Currencies_Button_Click(object sender, RoutedEventArgs e)
         {
             if (_viewModel != null)
             {
                 _viewModel.ShowingTopCurrencies = true;
-                _viewModel.RefreshDataAsync();
+
+                try
+                {
+                    await _viewModel.RefreshDataAsync(); // Очікуємо завершення асинхронної операції
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to refresh data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 Top_Currencies_button_Icon.Visibility = Visibility.Visible;
                 All_Currencies_button.Margin = new Thickness(40, 0, 30, 0);
@@ -37,12 +45,21 @@ namespace CoinApp
             }
         }
 
-        private void Show_All_Currencies_Button_Click(object sender, RoutedEventArgs e)
+
+        private async void Show_All_Currencies_Button_Click(object sender, RoutedEventArgs e)
         {
             if (_viewModel != null)
             {
                 _viewModel.ShowingTopCurrencies = false;
-                _viewModel.RefreshDataAsync();
+
+                try
+                {
+                    await _viewModel.RefreshDataAsync(); // Очікуємо завершення асинхронної операції
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to refresh data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 All_Currencies_button_Icon.Visibility = Visibility.Visible;
                 All_Currencies_button.Margin = new Thickness(40, 0, 0, 0);
