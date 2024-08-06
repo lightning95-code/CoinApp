@@ -17,6 +17,9 @@ namespace CoinApp.ViewModels
         private string _firstSelectedCurrencyName;
         private string _secondSelectedCurrencyName;
 
+        private decimal? _exchangeRate;
+        private decimal? _amount = 1;
+
         public ObservableCollection<string> CurrencyNames
         {
             get => _currencyNames;
@@ -56,6 +59,20 @@ namespace CoinApp.ViewModels
             }
         }
 
+        public decimal? ExchangeRate
+        {
+            get => _exchangeRate;
+            set
+            {
+                if (_exchangeRate != value)
+                {
+                    _exchangeRate = value;
+                    OnPropertyChanged(nameof(ExchangeRate));
+                }
+            }
+        }
+    
+
         public ConvertViewModel()
         {
             _apiService = new ApiService();
@@ -76,6 +93,41 @@ namespace CoinApp.ViewModels
                 MessageBox.Show($"Failed to load currency names: {ex.Message}");
             }
         }
+
+        public async Task<decimal?> GetExchangeRateAsync(string fromCurrencyId, string toCurrencyId)
+        {
+            try
+            {
+                var fromCurrency = await _apiService.GetCurrencyDetailsAsync(fromCurrencyId.ToLower());
+                var toCurrency = await _apiService.GetCurrencyDetailsAsync(toCurrencyId.ToLower());
+
+                if (fromCurrency == null || toCurrency == null)
+                {
+                    return null;
+                }
+
+                // Рассчитайте обменный курс
+                return fromCurrency.PriceUsd / toCurrency.PriceUsd;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to get exchange rate: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        public async Task UpdateExchangeRateAsync()
+        {
+            if (string.IsNullOrEmpty(FirstSelectedCurrencyName) || string.IsNullOrEmpty(SecondSelectedCurrencyName))
+            {
+                ExchangeRate = null;
+                return;
+            }
+
+            ExchangeRate = await GetExchangeRateAsync(FirstSelectedCurrencyName, SecondSelectedCurrencyName);
+
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

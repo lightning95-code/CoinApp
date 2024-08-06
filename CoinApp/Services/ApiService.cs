@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Windows;
+using System.Globalization;
 
 
 namespace CoinApp.Services
@@ -146,6 +147,40 @@ namespace CoinApp.Services
                 return null;
             }
         }
+
+        /*
+        // Метод отримання обмінного курсу між двома валютами
+        public async Task<decimal?> GetExchangeRateAsync(string fromCurrencyId, string toCurrencyId)
+        {
+            try
+            {
+                // Отримуємо деталі валют
+                var fromCurrency = await GetCurrencyDetailsAsync(fromCurrencyId);
+                var toCurrency = await GetCurrencyDetailsAsync(toCurrencyId);
+
+                if (fromCurrency == null || toCurrency == null)
+                {
+                    return null;
+                }
+
+                if (fromCurrency.PriceUsd == 0 || toCurrency.PriceUsd == 0)
+                {
+                    return null;
+                }
+
+                return fromCurrency.PriceUsd / toCurrency.PriceUsd; //розраховуємо результат конвертації
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to get exchange rate: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+        */
+
+
+
+
 
     }
 }

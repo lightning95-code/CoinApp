@@ -1,6 +1,7 @@
 ﻿using CoinApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,25 +31,6 @@ namespace CoinApp.Views
             DataContext = _viewModel;
         }
 
-        // Максимізація вікна
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 2)
-            {
-                if (IsMaximized)
-                {
-                    this.WindowState = WindowState.Normal;
-                    this.Width = 1080;
-                    this.Height = 720;
-                    IsMaximized = false;
-                }
-                else
-                {
-                    this.WindowState = WindowState.Maximized;
-                    IsMaximized = true;
-                }
-            }
-        }
 
         private void ComboBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -74,6 +56,95 @@ namespace CoinApp.Views
             }
         }
 
+        private void Swap_Button_Click(object sender, RoutedEventArgs e)
+        {
+        
+            if (string.IsNullOrEmpty(_viewModel.FirstSelectedCurrencyName) ||
+                string.IsNullOrEmpty(_viewModel.SecondSelectedCurrencyName))
+            {
+                MessageBox.Show("Please select both currencies to swap.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var tempCurrency = _viewModel.FirstSelectedCurrencyName;
+
+            _viewModel.FirstSelectedCurrencyName = _viewModel.SecondSelectedCurrencyName;
+            _viewModel.SecondSelectedCurrencyName = tempCurrency;
+
+            //зміна exchangeRate
+            _viewModel.UpdateExchangeRateAsync().ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                {
+                    MessageBox.Show("Failed to update exchange rate. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            });
+
+            // Оновлення полів
+            UpdateUIAfterSwap();
+        }
+
+        private void UpdateUIAfterSwap()
+        {
+            // оновлення комбобоксів
+            CurrencyComboBox1.SelectedItem = _viewModel.FirstSelectedCurrencyName;
+            CurrencyComboBox2.SelectedItem = _viewModel.SecondSelectedCurrencyName;
+
+            // очищення результату
+            ResultTextBox.Text = string.Empty;
+        }
+
+        private async void GetExchangeRateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_viewModel.FirstSelectedCurrencyName) ||
+                string.IsNullOrEmpty(_viewModel.SecondSelectedCurrencyName))
+            {
+                MessageBox.Show("Please select both currencies.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            await _viewModel.UpdateExchangeRateAsync();
+
+            string amountText = InputAmountTextBox.Text;
+            amountText = amountText.Replace(',', '.');
+
+            if (string.IsNullOrWhiteSpace(amountText))
+            {
+                MessageBox.Show("Please enter an amount.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            
+            if (!decimal.TryParse(amountText, NumberStyles.Number, CultureInfo.InvariantCulture, out decimal amount))
+            {
+                MessageBox.Show("Please enter a valid number.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (_viewModel.ExchangeRate == null)
+            {
+                MessageBox.Show("Failed to retrieve exchange rate. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (Convert.ToDecimal(amountText) < 0)
+            {
+                MessageBox.Show("The amount cannot be negative.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+
+            decimal exchangeRate = _viewModel.ExchangeRate.Value;
+            decimal result = exchangeRate * amount;
+            string fromCurrency = _viewModel.FirstSelectedCurrencyName;
+            string toCurrency = _viewModel.SecondSelectedCurrencyName;
+            string formattedResult = result.ToString("F6", CultureInfo.InvariantCulture);
+
+            ResultTextBox.Text = $"{amountText} {fromCurrency} = {formattedResult} {toCurrency}";
+
+
+        }
+
         // Переміщення вікна при зажатій ЛКМ
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -83,20 +154,31 @@ namespace CoinApp.Views
             }
         }
 
+        // Максимізація вікна
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                if (IsMaximized)
+                {
+                    this.WindowState = WindowState.Normal;
+                    this.Width = 1080;
+                    this.Height = 720;
+                    IsMaximized = false;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Maximized;
+                    IsMaximized = true;
+                }
+            }
+        }
+
         // Оновлення вікна
         private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Get_Exchange_Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(_viewModel.FirstSelectedCurrencyName) ||
-                 string.IsNullOrEmpty(_viewModel.SecondSelectedCurrencyName))
-            {
-                MessageBox.Show("Please select both currencies.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-        }
     }
 }
