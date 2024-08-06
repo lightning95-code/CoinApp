@@ -42,6 +42,7 @@ On this page you can select a currency (Bitcoin by default) and see the markets 
 - Light / dark theme support - (on development stage)
 - Currency charts
 - Flexible tables
+- Controls for using repeating elements
 
 ## Technical Details
 ### NuGet:
