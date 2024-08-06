@@ -51,6 +51,7 @@ On this page you can select a currency (Bitcoin by default) and see the markets 
 * Newtonsoft.Json
 
 ### Technologies:
+* C#
 * WPF (Windows Presentation Foundation) - WPF provides powerful tools for creating complex interfaces and making efficient use of system resources. Its XAML (Extensible Application Markup Language) support makes interface development more structured and modular.
 * MVVM - To separate responsibilities, to improve the readability, manageability, maintainability and testability of code. Helps to clearly separate application business logic and presentation logic from the user interface.
 * CoinCap (API) : https://docs.coincap.io/
