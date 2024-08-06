@@ -47,7 +47,7 @@
 
                         <!--Menu titles and button-->
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 30 0 0" HorizontalAlignment="Center">
-                            <TextBlock Text="MENU" Foreground="White" FontSize="30" FontWeight="SemiBold" TextAlignment="Center"
+                            <TextBlock Text="{DynamicResource Menu}" Foreground="White" FontSize="30" FontWeight="SemiBold" TextAlignment="Center"
              Margin="0 0 0 0"/>
                         </StackPanel>
 
@@ -59,7 +59,7 @@
                             <Button Style="{StaticResource menuButton}" Click="Refresh_Button_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Refresh" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Refresh current page"/>
+                                    <TextBlock Text="{DynamicResource RefreshPage}"/>
                                 </StackPanel>
                             </Button>
 
@@ -88,7 +88,7 @@
                 <controls:TopContentControls x:Name="TopContentControls" Grid.Row="0"/>
 
                 <!--Page title-->
-                <TextBlock x:Name="PageTitle"  Text="Markets" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="40,20,0,0"
+                <TextBlock x:Name="MarketsPageTitle"  Text="{DynamicResource MarketsPageTitle}" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="40,20,0,0"
                     HorizontalAlignment="Left" Foreground="#121518" Grid.RowSpan="6"/>
 
                 <!--Separator-->
@@ -102,7 +102,7 @@
 
                     <!-- left button -->
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="All_Markets_Button" Content="All Markets" Style="{StaticResource tabButton}" Width="150" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 -16 0"/>
+                        <Button x:Name="All_Markets_Button" Content="{DynamicResource All_Markets_Button}" Style="{StaticResource tabButton}" Width="150" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 -16 0"/>
                         <Icon:PackIconMaterial x:Name="Top_Currencies_button_Icon" Kind="CheckBold" Width="15" Height="15" VerticalAlignment="Center" Visibility="Visible" Foreground="Green"/>
                     </StackPanel>
                 </Grid>
@@ -132,7 +132,7 @@
                 <Grid x:Name="LoadingPanel" Visibility="Collapsed" Background="AliceBlue" Opacity="0.8" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="4" Margin="0 115">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Width="300" Height="150">
                         <!-- Повідомленя -->
-                        <TextBlock Text="Loading..." FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="11 -3 0 0"/>
+                        <TextBlock Text="{DynamicResource LoadingPanel}" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="11 -3 0 0"/>
                         <!-- Полоса виконання -->
                         <ProgressBar IsIndeterminate="True" Width="200" Height="20" Margin="10" Foreground="Blue" BorderBrush="#15354a" BorderThickness="2" Background="#bfd3e0"/>
                     </StackPanel>

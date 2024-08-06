@@ -14,35 +14,35 @@
             <Button Style="{StaticResource menuButton}" Click="Main_Button_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
-                    <TextBlock Text="Main"/>
+                    <TextBlock x:Name="MainTb" Text="{DynamicResource MainTb}"/>
                 </StackPanel>
             </Button>
 
             <Button Style="{StaticResource menuButton}" Click="Coin_Button_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Bitcoin" Style="{StaticResource menuButtonIcon}"/>
-                    <TextBlock Text="Coin"/>
+                    <TextBlock x:Name="CoinTb" Text="{DynamicResource CoinTb}"/>
                 </StackPanel>
             </Button>
 
             <Button Style="{StaticResource menuButton}" Click="Markets_Button_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="CurrencyUsd" Style="{StaticResource menuButtonIcon}"/>
-                    <TextBlock Text="Markets"/>
+                    <TextBlock x:Name="MarketsButTb" Text="{DynamicResource MarketsButTb}"/>
                 </StackPanel>
             </Button>
 
             <Button Style="{StaticResource menuButton}" Click="Markets_Search_Button_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}"/>
-                    <TextBlock Text="Market Search"/>
+                    <TextBlock x:Name="MarketSearchButTb" Text="{DynamicResource MarketSearchButTb}"/>
                 </StackPanel>
             </Button>
 
             <Button Style="{StaticResource menuButton}" Click="Convert_Button_Click">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="CreditCard" Style="{StaticResource menuButtonIcon}"/>
-                    <TextBlock Text="Convert"/>
+                    <TextBlock x:Name="ConvertTb" Text="{DynamicResource ConvertTb}"/>
                 </StackPanel>
             </Button>
         </StackPanel>

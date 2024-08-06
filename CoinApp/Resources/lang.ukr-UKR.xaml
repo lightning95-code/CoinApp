@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+
+    <!--MainWindow-->
+    <v:String x:Key="PageTitle">Криптовалюти</v:String>
+    <v:String x:Key="Top_10_Button">Топ 10 монет</v:String>
+    <v:String x:Key="All_Currencies_button">Усі доступні монети</v:String>
+
+    <!--ConvertView-->
+    <v:String x:Key="ConvertOneCurToAnotherTextBlock">Конвертуйте одну криптовалюту в іншу!</v:String>
+    <v:String x:Key="AmountTextBlock">Введіть суму:</v:String>
+    <v:String x:Key="FromTextBlock">З</v:String>
+    <v:String x:Key="ToTextBlock">У</v:String>
+    <v:String x:Key="ConverterPageTitle">Конвертер криптовалют</v:String>
+    <v:String x:Key="GetExchangeBut">Отримати курс обміну</v:String>
+
+    <!--MarketsView-->
+    <v:String x:Key="MarketsPageTitle">Ринки</v:String>
+    <v:String x:Key="All_Markets_Button">Всі ринки</v:String>
+
+
+    <!--MarketSearchView-->
+    <v:String x:Key="MarketSearchPageTitle">Пошук ринків</v:String>
+    <v:String x:Key="Selected_Coin_Tb">Обрана монета:</v:String>
+
+    <!--CoinView-->
+    <v:String x:Key="CoinDetPageTitle">Інформація про монету:</v:String>
+    <v:String x:Key="Markets_for_purch">Перегляд ринків</v:String>
+    <v:String x:Key="CoinSym">Символ:</v:String>
+    <v:String x:Key="CoinPrice">Ціна:</v:String>
+    <v:String x:Key="CoinPriceCh">Зміна ціни (24 год)</v:String>
+    <v:String x:Key="CoinVol">Обсяг (24 год):</v:String>
+    <v:String x:Key="CoinRank">Рейтинг на ринку:</v:String>
+    <v:String x:Key="MarketCap">Капіталізація:</v:String>
+    <v:String x:Key="CoinSup">Запас:</v:String>
+
+    <!--Left Menu-->
+    <v:String x:Key="ExitTb">Вихід</v:String>
+    <v:String x:Key="MainTb">Головна</v:String>
+    <v:String x:Key="CoinTb">Монета</v:String>
+    <v:String x:Key="MarketsButTb">Ринки</v:String>
+    <v:String x:Key="MarketSearchButTb">Пошук ринків</v:String>
+    <v:String x:Key="ConvertTb">Конвертація валют</v:String>
+    <v:String x:Key="RefreshPage">Оновити сторіку</v:String>
+    <v:String x:Key="Menu">МЕНЮ</v:String>
+
+
+    <v:String x:Key="TabSeacrhCurrency">Шукайте валюту за назвою або виберіть її...</v:String>
+    <v:String x:Key="LoadingPanel">Завантаження...</v:String>
+
+    <v:String x:Key="TabForSearchBox">UKR</v:String>
+
+</ResourceDictionary>

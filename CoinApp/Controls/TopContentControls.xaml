@@ -15,7 +15,7 @@
             <Grid Width="300" HorizontalAlignment="Left" Height="50">
                 <Border BorderBrush="#999fa8" BorderThickness="2" CornerRadius="8" Margin="40,0,-70,0">
                     <TextBox x:Name="searchTextBox"
-                             Text="Search currency by name or select coin..."
+                             Text="{DynamicResource TabSeacrhCurrency}"
                              Foreground="#575859"
                              FontSize="12"
                              Margin="6 5 50 7"
@@ -59,12 +59,33 @@
             <Button Style="{StaticResource topButton}" Margin="0 0 0 2" HorizontalAlignment="Right" Click="Close_This_Window_Button_Click">
                 <TextBlock Text="X" FontSize="25" FontWeight="Bold"/>
             </Button>
-            <Button Style="{StaticResource topButton}" Margin="0 0 40 0" HorizontalAlignment="Right">
-                <Icon:PackIconMaterial Kind="Cog" Width="35" Height="20"/>
-            </Button>
+            <StackPanel Margin="0 5 40 0" HorizontalAlignment="Right">
+                <Button Style="{StaticResource topButton}"   Click="Change_Lang_Button_Click">
+                    <Icon:PackIconMaterial Kind="Cog" Width="35" Height="20"/>
+                </Button>
+                <!-- Popup для ComboBox -->
+                <Popup x:Name="LanguagePopup"
+                   Placement="Bottom"
+                   PlacementTarget="{Binding ElementName=Change_Lang_Button}"
+                   StaysOpen="False"
+                   AllowsTransparency="True"
+                       Width="45">
+                    <Border Background="White" BorderBrush="Gray" BorderThickness="1" Padding="1">
+                        <ComboBox x:Name="LanguageComboBox"
+                  Width="40" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center" SelectionChanged="LanguageComboBox_SelectionChanged">
+                            <ComboBoxItem Content="ENG" />
+                            <ComboBoxItem Content="УКР" />
+                        </ComboBox>
+                    </Border>
+                </Popup>
+            </StackPanel>
+
+
             <Button Style="{StaticResource topButton}" Margin="0 0 80 0" HorizontalAlignment="Right">
                 <Icon:PackIconMaterial Kind="ThemeLightDark" Width="35" Height="20"/>
             </Button>
+
+            <TextBlock x:Name="TabForSearchBox" Text="{DynamicResource TabForSearchBox}" Foreground="Transparent" Height="1" Width="1"/>
         </Grid>
 
     </Border>

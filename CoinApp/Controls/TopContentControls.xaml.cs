@@ -17,6 +17,8 @@ namespace CoinApp.Controls
         private readonly ApiService _apiService; // Сервіс для взаємодії з API
         private List<string> _currencyNames; // Список всіх назв валют
 
+        private bool IsLanguagePopupOpen = false;
+
         public TopContentControls()
         {
             InitializeComponent();
@@ -83,7 +85,14 @@ namespace CoinApp.Controls
         {
             if (string.IsNullOrWhiteSpace(searchTextBox.Text))
             {
-                searchTextBox.Text = "Search currency by name or select coin..."; // Відновлення тексту при втраті фокусу
+                if (TabForSearchBox.Text == "ENG")
+                {
+                    searchTextBox.Text = "Search currency by name or select coin..."; // Відновлення тексту при втраті фокусу
+                }
+                else 
+                {
+                    searchTextBox.Text = "Шукайте валюту за назвою або виберіть її...";
+                }      
             }
 
             autoCompletePopup.IsOpen = false;
@@ -159,5 +168,100 @@ namespace CoinApp.Controls
                 MessageBox.Show("Please, Input correct text!"); 
             }
         }
+
+        private void Change_Lang_Button_Click(object sender, RoutedEventArgs e)
+        {
+            IsLanguagePopupOpen = !IsLanguagePopupOpen;
+            LanguagePopup.IsOpen = IsLanguagePopupOpen;
+        }
+
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Check if sender is not null and is a ComboBox
+            if (sender is ComboBox comboBox)
+            {
+                // Check if the selected item is not null
+                if (comboBox.SelectedItem is ComboBoxItem selectedItem)
+                {
+                    // Get the language code from the selected item
+                    string languageCode = selectedItem.Content.ToString();
+
+                    // Call the method to change language
+                    ChangeLanguage(languageCode);
+                }
+                else
+                {
+                    MessageBox.Show("No item selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid sender type.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+
+
+        private void ChangeLanguage(string languageCode)
+        {
+            // List of dictionaries that should not be removed
+            var nonLocalizationDictionaries = new List<ResourceDictionary>
+    {
+        new ResourceDictionary { Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml") },
+        new ResourceDictionary { Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml") },
+        new ResourceDictionary { Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml") },
+        new ResourceDictionary { Source = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml") }
+    };
+
+            // Separate the current localization dictionaries
+            var localizationDictionaries = Application.Current.Resources.MergedDictionaries
+                .Where(dict => !nonLocalizationDictionaries.Any(nonDict => dict.Source == nonDict.Source))
+                .ToList();
+
+            // Remove the current localization dictionaries
+            foreach (var dictionary in localizationDictionaries)
+            {
+                Application.Current.Resources.MergedDictionaries.Remove(dictionary);
+            }
+
+            // Create and load the new localization resource dictionary
+            ResourceDictionary newResourceDictionary = new ResourceDictionary();
+            Uri resourceUri = null;
+
+            switch (languageCode.ToUpper())
+            {
+                case "ENG":
+                    resourceUri = new Uri("Resources/lang.xaml", UriKind.Relative);
+                    break;
+                case "УКР":
+                    resourceUri = new Uri("Resources/lang.ukr-UKR.xaml", UriKind.Relative);
+                    break;
+                default:
+                    resourceUri = new Uri("Resources/lang.xaml", UriKind.Relative); // Default to English
+                    break;
+            }
+
+            if (resourceUri != null)
+            {
+                try
+                {
+                    newResourceDictionary.Source = resourceUri;
+                    Application.Current.Resources.MergedDictionaries.Add(newResourceDictionary);
+
+                    // Add the non-localization dictionaries back
+                    foreach (var dict in nonLocalizationDictionaries)
+                    {
+                        Application.Current.Resources.MergedDictionaries.Add(dict);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading resource dictionary: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+
+
     }
 }

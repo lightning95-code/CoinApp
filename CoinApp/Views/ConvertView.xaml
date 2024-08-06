@@ -46,7 +46,7 @@
 
                         <!--Menu titles and button-->
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 30 0 0" HorizontalAlignment="Center">
-                            <TextBlock Text="MENU" Foreground="White" FontSize="30" FontWeight="SemiBold" TextAlignment="Center"
+                            <TextBlock Text="{DynamicResource Menu}" Foreground="White" FontSize="30" FontWeight="SemiBold" TextAlignment="Center"
                          Margin="0 0 0 0"/>
                         </StackPanel>
 
@@ -58,7 +58,7 @@
                             <Button Style="{StaticResource menuButton}" Click="Refresh_Button_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Refresh" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Refresh current page"/>
+                                    <TextBlock Text="{DynamicResource RefreshPage}"/>
                                 </StackPanel>
                             </Button>
 
@@ -87,14 +87,14 @@
                 <controls:TopContentControls x:Name="TopContentControls" Grid.Row="0"/>
 
                 <!--Page title-->
-                <TextBlock x:Name="PageTitle"  Text="Cryptocurrency converter" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="40,20,0,0"
+                <TextBlock x:Name="ConverterPageTitle"  Text="{DynamicResource ConverterPageTitle}" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="40,20,0,0"
                 HorizontalAlignment="Left" Foreground="#121518" Grid.RowSpan="6"/>
 
                 <!--Separator-->
                 <Separator Height="8" Grid.Row="2" Background="Black" Margin="0 75 0 10"/>
 
                 <Border Grid.Row="3" Grid.RowSpan="4" Background="#71a0bf" CornerRadius="20" Margin="10 10 10 10">
-                    <Border VerticalAlignment="Center" Background="#e3e3de" Width="400" Height="450" CornerRadius="40">
+                    <Border x:Name="ConvBorder" VerticalAlignment="Center" Background="#e3e3de" Width="400" Height="450" CornerRadius="40" Visibility="Visible">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
@@ -106,15 +106,15 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Text="Convert one cryptocurrency to another!" Margin="0 40 0 10" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontWeight="Bold" FontSize="18"/>
-                            <TextBlock Text="Enter amount:" Margin="40 30 0 10" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" FontSize="15" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="ConvertOneCurToAnotherTextBlock" Text="{DynamicResource ConvertOneCurToAnotherTextBlock}" Margin="0 40 0 10" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" FontWeight="Bold" FontSize="18"/>
+                            <TextBlock x:Name="AmountTextBlock" Text="{DynamicResource AmountTextBlock}" Margin="40 30 0 10" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" FontSize="15" FontWeight="SemiBold"/>
                             <Border Grid.Row="2" Background="White" BorderBrush="Gray" BorderThickness="3"  Margin="35 5 40 10" Height="40" Width="320" CornerRadius="5">
                                 <TextBox x:Name="InputAmountTextBox" Style="{StaticResource textboxConvert}"/>
                             </Border>
                             <StackPanel Grid.Row="3" Orientation="Vertical" Width="320" Height="90">
                                 <DockPanel Width="320" Height="40">
-                                    <TextBlock Text="From" VerticalAlignment="Center" DockPanel.Dock="Left" FontSize="15" FontWeight="SemiBold"/>
-                                    <TextBlock Text="To" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" FontSize="15" FontWeight="SemiBold" Width="100"/>
+                                    <TextBlock x:Name="FromTextBlock" Text="{DynamicResource FromTextBlock}" VerticalAlignment="Center" DockPanel.Dock="Left" FontSize="15" FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="ToTextBlock" Text="{DynamicResource ToTextBlock}" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" FontSize="15" FontWeight="SemiBold" Width="100"/>
                                 </DockPanel>
                                 <DockPanel>
                                     <Border BorderBrush="Gray" BorderThickness="3" CornerRadius="4" Background="White" Height="40" Width="120">
@@ -135,16 +135,16 @@
                                 </DockPanel>
                             </StackPanel>
                             <TextBox x:Name="ResultTextBox" Grid.Row="4" Style="{StaticResource TextBoxForResultOfConvert}" />
-                            <Button Content="Get exchange rate" Grid.Row="5" Background="Gray" BorderBrush="#666565" BorderThickness="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" Margin="0 20 0 0" Click="GetExchangeRateButton_Click"/>
+                            <Button x:Name="GetExchangeBut" Content="{DynamicResource GetExchangeBut}" Grid.Row="5" Background="Gray" BorderBrush="#666565" BorderThickness="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" Height="50" Margin="0 20 0 0" Click="GetExchangeRateButton_Click"/>
                         </Grid>
                     </Border>
                 </Border>
 
                 <!-- Панель завантаження -->
-                <Grid x:Name="LoadingPanel" Visibility="Collapsed" Background="AliceBlue" Opacity="0.8" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="4" Margin="0 115">
+                <Grid x:Name="LoadingPanel" Visibility="Collapsed" Background="Transparent" Opacity="0.8" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="4" Margin="0 150">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Width="300" Height="150">
                         <!-- Повідомленя -->
-                        <TextBlock Text="Loading..." FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="11 -3 0 0"/>
+                        <TextBlock Text="{DynamicResource LoadingPanel}" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="11 -3 0 0"/>
                         <!-- Полоса виконання -->
                         <ProgressBar IsIndeterminate="True" Width="200" Height="20" Margin="10" Foreground="Blue" BorderBrush="#15354a" BorderThickness="2" Background="#bfd3e0"/>
                     </StackPanel>

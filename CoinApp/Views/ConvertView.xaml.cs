@@ -177,8 +177,32 @@ namespace CoinApp.Views
         // Оновлення вікна
         private async void Refresh_Button_Click(object sender, RoutedEventArgs e)
         {
+            // Показати панель завантаження
+            ConvBorder.Visibility = Visibility.Collapsed;
+            LoadingPanel.Visibility = Visibility.Visible;
 
+            try
+            {
+                // Оновлення даних у ViewModel
+                await _viewModel.UpdateExchangeRateAsync();
+
+                await Task.Delay(2500);
+                // Оновлення полів після оновлення даних
+                UpdateUIAfterSwap();
+            }
+            catch (Exception ex)
+            {
+                // Показати повідомлення про помилку
+                MessageBox.Show("Failed to refresh data. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // Сховати панель завантаження і відновити видимість основного контенту
+                LoadingPanel.Visibility = Visibility.Collapsed;
+                ConvBorder.Visibility = Visibility.Visible;
+            }
         }
+
 
     }
 }

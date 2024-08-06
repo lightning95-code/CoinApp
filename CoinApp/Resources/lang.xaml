@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+
+    <!--MainWindow-->
+    <v:String x:Key="PageTitle">Currencies</v:String>
+    <v:String x:Key="Top_10_Button">Top 10 currenciess</v:String>
+    <v:String x:Key="All_Currencies_button">All available currencies</v:String>
+
+    <!--ConvertView-->
+    <v:String x:Key="ConvertOneCurToAnotherTextBlock">Convert one cryptocurrency to another!</v:String>
+    <v:String x:Key="AmountTextBlock">Enter amount:</v:String>
+    <v:String x:Key="FromTextBlock">From</v:String>
+    <v:String x:Key="ToTextBlock">To</v:String>
+    <v:String x:Key="ConverterPageTitle">Cryptocurrency converter</v:String>
+    <v:String x:Key="GetExchangeBut">Get exchange rate</v:String>
+    
+    <!--MarketsView-->
+    <v:String x:Key="MarketsPageTitle">Markets</v:String>
+    <v:String x:Key="All_Markets_Button">All Markets</v:String>
+    
+    
+    <!--MarketSearchView-->
+    <v:String x:Key="MarketSearchPageTitle">Market search</v:String>
+    <v:String x:Key="Selected_Coin_Tb">Selected Coin:</v:String>
+
+
+    <!--CoinView-->
+    <v:String x:Key="CoinDetPageTitle">Coin details:</v:String>
+    <v:String x:Key="Markets_for_purch">Markets for purchasing</v:String>
+    <v:String x:Key="CoinSym">Symbol:</v:String>
+    <v:String x:Key="CoinPrice">Price:</v:String>
+    <v:String x:Key="CoinPriceCh">Price change (24 h):</v:String>
+    <v:String x:Key="CoinVol">Volume (24 h):</v:String>
+    <v:String x:Key="CoinRank">Market rank:</v:String>
+    <v:String x:Key="MarketCap">Market cap:</v:String>
+    <v:String x:Key="CoinSup">Supply:</v:String>
+    
+    <!--Left Menu-->
+    <v:String x:Key="ExitTb">Exit</v:String>
+    <v:String x:Key="MainTb">Main</v:String>
+    <v:String x:Key="CoinTb">Coin</v:String>
+    <v:String x:Key="MarketsButTb">Markets</v:String>
+    <v:String x:Key="MarketSearchButTb">Market Search</v:String>
+    <v:String x:Key="ConvertTb">Convert</v:String>
+    <v:String x:Key="RefreshPage">Refresh current page</v:String>
+    <v:String x:Key="Menu">MENU</v:String>
+
+    <v:String x:Key="TabSeacrhCurrency">Search currency by name or select coin...</v:String>
+
+    <v:String x:Key="LoadingPanel">Loading...</v:String>
+
+    <v:String x:Key="TabForSearchBox">ENG</v:String>
+
+</ResourceDictionary>

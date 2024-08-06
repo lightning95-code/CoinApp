@@ -32,7 +32,7 @@ namespace CoinApp.Views
 
         private void CurrencyComboBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (CurrencyComboBox != null && CurrencyComboBox.Text == "Select coin")
+            if (CurrencyComboBox != null && (CurrencyComboBox.Text == "Select coin" || CurrencyComboBox.Text == "Обрана монета"))
             {
                 CurrencyComboBox.Text = "";      
             }
@@ -42,8 +42,15 @@ namespace CoinApp.Views
         private void CurrencyComboBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (CurrencyComboBox == null || CurrencyComboBox.Text == "")
-            {
-                CurrencyComboBox.Text = "Select coin";
+            {  
+                if (Selected_Coin_Tb.Text == "Selected Coin:")
+                {
+                    CurrencyComboBox.Text = "Select coin";
+                }
+                else
+                {
+                    CurrencyComboBox.Text = "Обрана монета";
+                }
             }
             CurrencyComboBox.IsDropDownOpen = false;
         }
@@ -96,5 +103,6 @@ namespace CoinApp.Views
                 this.DragMove();
             }
         }
+
     }
 }
